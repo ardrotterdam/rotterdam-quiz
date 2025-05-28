@@ -1,0 +1,85 @@
+<!DOCTYPE html>
+<html lang="nl">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Rotterdam Quiz</title>
+  <link rel="stylesheet" href="styles.css" />
+</head>
+<body>
+
+  <div class="quiz-container">
+    <div class="rotterdam-badge">010 Quiz</div>
+
+    <div class="header">
+      <div class="logo">ROTTERDAMSHOP.COM</div>
+      <div class="subtitle">Rotterdam Quiz 🏙️</div>
+      <div class="tagline">Shop smart, shop Rotterdam</div>
+    </div>
+
+    <div class="quiz-content">
+      <!-- Start Screen -->
+      <div class="start-screen" id="startScreen">
+        <h2>🌉 Rotterdam Kennistest</h2>
+        <p>Test je kennis over de mooiste stad van Nederland!</p>
+
+        <div class="difficulty-selector">
+          <div class="difficulty-btn" onclick="selectDifficulty('easy')" data-difficulty="easy">
+            <div class="difficulty-title">🟢 Makkelijk</div>
+            <div class="difficulty-desc">10 vragen • 45 sec</div>
+          </div>
+          <div class="difficulty-btn selected" onclick="selectDifficulty('normal')" data-difficulty="normal">
+            <div class="difficulty-title">🟡 Normaal</div>
+            <div class="difficulty-desc">12 vragen • 35 sec</div>
+          </div>
+          <div class="difficulty-btn" onclick="selectDifficulty('hard')" data-difficulty="hard">
+            <div class="difficulty-title">🔴 Moeilijk</div>
+            <div class="difficulty-desc">15 vragen • 25 sec</div>
+          </div>
+        </div>
+
+        <button class="btn" onclick="startQuiz()">Start 010 Quiz</button>
+      </div>
+
+      <!-- Quiz Screen -->
+      <div class="quiz-screen" id="quizScreen">
+        <div class="progress-section">
+          <div class="progress-bar">
+            <div class="progress-fill" id="progressFill"></div>
+          </div>
+          <div class="question-info">
+            <div class="question-counter" id="questionCounter">Vraag 1 van 12</div>
+            <div class="timer" id="timer">Tijd: 35s</div>
+          </div>
+        </div>
+
+        <div class="question" id="questionContainer">
+          <div class="question-category" id="questionCategory">Haven</div>
+          <h3 id="questionText">...</h3>
+          <div class="answers" id="answersContainer"></div>
+        </div>
+      </div>
+
+      <!-- Resultaten -->
+      <div class="results-screen" id="resultsScreen">
+        <div class="score-display">
+          <div class="score-number" id="finalScore">0</div>
+          <div class="score-text" id="scoreText">van de 12 correct</div>
+        </div>
+        <div class="score-message" id="scoreMessage"></div>
+        <div class="rotterdam-title" id="rotterdamTitle"></div>
+        <div class="score-description" id="scoreDescription"></div>
+
+        <button class="btn" onclick="restartQuiz()">Opnieuw Spelen</button>
+        <button class="btn btn-secondary" onclick="window.open('https://rotterdamshop.com', '_blank')">Bezoek Shop</button>
+      </div>
+
+      <div class="powered-by">
+        Powered by <a href="https://rotterdamshop.com" target="_blank">Rotterdamshop.com</a>
+      </div>
+    </div>
+  </div>
+
+  <script src="quiz.js"></script>
+</body>
+</html>
