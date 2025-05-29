@@ -462,11 +462,13 @@
                 grid-template-columns: 1fr;
             }
         }
-
-@media (max-width: 600px) {
-  .quiz-header-title {
+    @media (max-width: 600px) {
+  .no-wrap {
+    white-space: nowrap;
     font-size: 1.4rem;
-    word-break: break-word;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    display: block;
     text-align: center;
   }
 }
