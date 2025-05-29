@@ -441,8 +441,10 @@
             }
             
             .logo {
-                font-size: 24px;
-            }
+  font-size: 20px;
+  word-break: break-word;
+}
+
             
             .question h3 {
                 font-size: 18px;
