@@ -463,14 +463,9 @@
             }
         }
 
-/* Mobile: logo smaller en afbreken bij lange woorden */
 @media (max-width: 600px) {
   .logo {
-    font-size: 20px;         /* kleinere tekst */
-    word-break: break-all;   /* breekt woorden (zoals ROTTERDAMSHOP.COM) */
-    /* eventueel: padding-left/right verkleinen */
-    /* padding: 0 10px; */
+    font-size: 18px !important;     /* ietsjes kleiner */
+    word-break: normal !important;   /* nu kan hij breken op de spatie */
   }
 }
-
-    
