@@ -464,8 +464,9 @@
         }
 
 @media (max-width: 600px) {
-  .logo {
-    font-size: 18px !important;     /* ietsjes kleiner */
-    word-break: normal !important;   /* nu kan hij breken op de spatie */
+  .quiz-header-title {
+    font-size: 1.4rem;
+    word-break: break-word;
+    text-align: center;
   }
 }
