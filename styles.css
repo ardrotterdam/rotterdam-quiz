@@ -425,46 +425,45 @@
             font-size: 12px;
         }
 
-        .powered-by a {
-            color: #ff4500;
-            text-decoration: none;
-            font-weight: 500;
-        }
-
-        @media (max-width: 600px) {
-            .quiz-container {
-                margin: 10px;
-            }
-            
-            .quiz-content {
-                padding: 20px;
-            }
-            
-            .logo {
-  font-size: 20px;
-  word-break: break-word;
+   .powered-by a {
+  color: #ff4500;
+  text-decoration: none;
+  font-weight: 500;
 }
 
-            
-            .question h3 {
-                font-size: 18px;
-            }
-            
-            .btn {
-                font-size: 16px;
-                padding: 12px 25px;
-            }
-            
-            .btn-secondary {
-                margin-left: 0;
-                margin-top: 10px;
-            }
+.logo--desktop {
+  display: inline;
+}
 
-            .difficulty-selector {
-                grid-template-columns: 1fr;
-            }
-        }
-    @media (max-width: 600px) {
+.logo--mobile {
+  display: none;
+}
+
+@media (max-width: 600px) {
+  .quiz-container {
+    margin: 10px;
+  }
+
+  .quiz-content {
+    padding: 20px;
+  }
+
+  .logo {
+    font-size: 20px;
+    word-break: break-word;
+    white-space: normal;
+    text-align: center;
+    padding: 0 10px;
+  }
+
+  .logo--desktop {
+    display: none;
+  }
+
+  .logo--mobile {
+    display: inline;
+  }
+
   .no-wrap {
     white-space: nowrap;
     font-size: 1.4rem;
@@ -473,15 +472,22 @@
     display: block;
     text-align: center;
   }
-}
-@media (max-width: 600px) {
-  /* bestaand: quiz-container, quiz-content, enz. */
 
-  .logo {
-    font-size: 20px;
-    word-break: break-word;
-    white-space: normal;
-    text-align: center;
-    padding: 0 10px;
+  .question h3 {
+    font-size: 18px;
+  }
+
+  .btn {
+    font-size: 16px;
+    padding: 12px 25px;
+  }
+
+  .btn-secondary {
+    margin-left: 0;
+    margin-top: 10px;
+  }
+
+  .difficulty-selector {
+    grid-template-columns: 1fr;
   }
 }
