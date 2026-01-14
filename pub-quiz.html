@@ -1,0 +1,1453 @@
+<!DOCTYPE html>
+<html lang="nl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Pub Quiz Rotterdam 2026 | De Ultieme 010 Kroegquiz</title>
+    <meta name="description" content="Gratis Pub Quiz Rotterdam met 6 rondes, 60+ vragen over 010. Perfect voor je kroegavond, vriendengroep of bedrijfsuitje. Speel nu!">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Space+Mono:wght@400;700&family=Outfit:wght@300;400;600;800&display=swap" rel="stylesheet">
+    
+    <style>
+        :root {
+            --neon-orange: #FF6B2C;
+            --neon-pink: #FF2D7C;
+            --neon-blue: #00D4FF;
+            --neon-green: #39FF14;
+            --neon-yellow: #FFE600;
+            --dark-bg: #0a0a0f;
+            --card-bg: #12121a;
+            --glass: rgba(255,255,255,0.03);
+            --glass-border: rgba(255,255,255,0.08);
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Outfit', sans-serif;
+            background: var(--dark-bg);
+            color: #fff;
+            min-height: 100vh;
+            overflow-x: hidden;
+        }
+
+        /* Animated background */
+        .bg-animation {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            z-index: -1;
+            background: 
+                radial-gradient(ellipse at 20% 20%, rgba(255,107,44,0.15) 0%, transparent 50%),
+                radial-gradient(ellipse at 80% 80%, rgba(255,45,124,0.1) 0%, transparent 50%),
+                radial-gradient(ellipse at 50% 50%, rgba(0,212,255,0.05) 0%, transparent 70%);
+            animation: bgPulse 8s ease-in-out infinite;
+        }
+
+        @keyframes bgPulse {
+            0%, 100% { opacity: 1; }
+            50% { opacity: 0.7; }
+        }
+
+        /* Noise overlay */
+        .noise {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            z-index: -1;
+            opacity: 0.03;
+            background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noise'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noise)'/%3E%3C/svg%3E");
+        }
+
+        .container {
+            max-width: 1000px;
+            margin: 0 auto;
+            padding: 20px;
+            position: relative;
+        }
+
+        /* ============ START SCREEN ============ */
+        .screen {
+            display: none;
+            animation: fadeIn 0.5s ease;
+        }
+
+        .screen.active {
+            display: block;
+        }
+
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(20px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        .hero {
+            text-align: center;
+            padding: 60px 20px;
+        }
+
+        .logo-badge {
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            background: linear-gradient(135deg, var(--neon-orange), var(--neon-pink));
+            padding: 8px 20px;
+            border-radius: 50px;
+            font-family: 'Space Mono', monospace;
+            font-size: 12px;
+            font-weight: 700;
+            text-transform: uppercase;
+            letter-spacing: 2px;
+            margin-bottom: 30px;
+            animation: glow 2s ease-in-out infinite;
+        }
+
+        @keyframes glow {
+            0%, 100% { box-shadow: 0 0 20px rgba(255,107,44,0.5); }
+            50% { box-shadow: 0 0 40px rgba(255,45,124,0.7); }
+        }
+
+        .main-title {
+            font-family: 'Bebas Neue', sans-serif;
+            font-size: clamp(4rem, 15vw, 10rem);
+            line-height: 0.9;
+            letter-spacing: -2px;
+            background: linear-gradient(135deg, #fff 0%, #fff 50%, var(--neon-orange) 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+            margin-bottom: 10px;
+        }
+
+        .main-title span {
+            display: block;
+            background: linear-gradient(135deg, var(--neon-orange), var(--neon-pink));
+            -webkit-background-clip: text;
+            background-clip: text;
+        }
+
+        .subtitle {
+            font-family: 'Space Mono', monospace;
+            font-size: 1.1rem;
+            color: rgba(255,255,255,0.6);
+            margin-bottom: 50px;
+        }
+
+        .subtitle .highlight {
+            color: var(--neon-blue);
+        }
+
+        /* Stats bar */
+        .stats-bar {
+            display: flex;
+            justify-content: center;
+            gap: 40px;
+            margin-bottom: 50px;
+            flex-wrap: wrap;
+        }
+
+        .stat {
+            text-align: center;
+        }
+
+        .stat-value {
+            font-family: 'Bebas Neue', sans-serif;
+            font-size: 3rem;
+            color: var(--neon-orange);
+            line-height: 1;
+        }
+
+        .stat-label {
+            font-size: 0.75rem;
+            text-transform: uppercase;
+            letter-spacing: 2px;
+            color: rgba(255,255,255,0.5);
+        }
+
+        /* Team setup */
+        .setup-section {
+            background: var(--card-bg);
+            border: 1px solid var(--glass-border);
+            border-radius: 24px;
+            padding: 40px;
+            margin-bottom: 30px;
+        }
+
+        .section-title {
+            font-family: 'Bebas Neue', sans-serif;
+            font-size: 2rem;
+            margin-bottom: 20px;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .section-title .icon {
+            font-size: 1.5rem;
+        }
+
+        .team-input-row {
+            display: flex;
+            gap: 15px;
+            margin-bottom: 15px;
+        }
+
+        .team-input {
+            flex: 1;
+            background: var(--glass);
+            border: 2px solid var(--glass-border);
+            border-radius: 12px;
+            padding: 15px 20px;
+            font-size: 1rem;
+            color: #fff;
+            font-family: 'Outfit', sans-serif;
+            transition: all 0.3s ease;
+        }
+
+        .team-input:focus {
+            outline: none;
+            border-color: var(--neon-orange);
+            box-shadow: 0 0 20px rgba(255,107,44,0.2);
+        }
+
+        .team-input::placeholder {
+            color: rgba(255,255,255,0.3);
+        }
+
+        .add-team-btn {
+            background: var(--glass);
+            border: 2px dashed var(--glass-border);
+            border-radius: 12px;
+            padding: 15px 30px;
+            color: rgba(255,255,255,0.5);
+            font-size: 1rem;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            width: 100%;
+        }
+
+        .add-team-btn:hover {
+            border-color: var(--neon-orange);
+            color: var(--neon-orange);
+        }
+
+        .teams-preview {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 10px;
+            margin-top: 20px;
+        }
+
+        .team-tag {
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            background: linear-gradient(135deg, rgba(255,107,44,0.2), rgba(255,45,124,0.2));
+            border: 1px solid rgba(255,107,44,0.3);
+            padding: 8px 16px;
+            border-radius: 50px;
+            font-size: 0.9rem;
+        }
+
+        .team-tag .remove {
+            cursor: pointer;
+            opacity: 0.5;
+            transition: opacity 0.2s;
+        }
+
+        .team-tag .remove:hover {
+            opacity: 1;
+        }
+
+        /* Rounds preview */
+        .rounds-preview {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(140px, 1fr));
+            gap: 15px;
+            margin-top: 20px;
+        }
+
+        .round-card {
+            background: var(--glass);
+            border: 1px solid var(--glass-border);
+            border-radius: 16px;
+            padding: 20px;
+            text-align: center;
+            transition: all 0.3s ease;
+        }
+
+        .round-card:hover {
+            transform: translateY(-5px);
+            border-color: var(--neon-orange);
+        }
+
+        .round-card .emoji {
+            font-size: 2rem;
+            margin-bottom: 10px;
+        }
+
+        .round-card .name {
+            font-weight: 600;
+            font-size: 0.9rem;
+            margin-bottom: 5px;
+        }
+
+        .round-card .count {
+            font-size: 0.75rem;
+            color: rgba(255,255,255,0.5);
+        }
+
+        /* Start button */
+        .start-btn {
+            width: 100%;
+            background: linear-gradient(135deg, var(--neon-orange), var(--neon-pink));
+            border: none;
+            border-radius: 16px;
+            padding: 25px;
+            font-family: 'Bebas Neue', sans-serif;
+            font-size: 2rem;
+            color: #fff;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .start-btn::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: -100%;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(90deg, transparent, rgba(255,255,255,0.2), transparent);
+            transition: left 0.5s ease;
+        }
+
+        .start-btn:hover::before {
+            left: 100%;
+        }
+
+        .start-btn:hover {
+            transform: scale(1.02);
+            box-shadow: 0 10px 40px rgba(255,107,44,0.4);
+        }
+
+        /* ============ QUIZ SCREEN ============ */
+        .quiz-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 20px 0;
+            border-bottom: 1px solid var(--glass-border);
+            margin-bottom: 30px;
+        }
+
+        .round-indicator {
+            display: flex;
+            align-items: center;
+            gap: 15px;
+        }
+
+        .round-emoji {
+            font-size: 2.5rem;
+        }
+
+        .round-info h2 {
+            font-family: 'Bebas Neue', sans-serif;
+            font-size: 1.8rem;
+            color: var(--neon-orange);
+        }
+
+        .round-info span {
+            font-size: 0.85rem;
+            color: rgba(255,255,255,0.5);
+        }
+
+        .question-counter {
+            font-family: 'Space Mono', monospace;
+            font-size: 1rem;
+            color: rgba(255,255,255,0.6);
+        }
+
+        /* Progress bar */
+        .progress-container {
+            height: 6px;
+            background: var(--glass);
+            border-radius: 3px;
+            margin-bottom: 40px;
+            overflow: hidden;
+        }
+
+        .progress-fill {
+            height: 100%;
+            background: linear-gradient(90deg, var(--neon-orange), var(--neon-pink));
+            border-radius: 3px;
+            transition: width 0.5s ease;
+        }
+
+        /* Question card */
+        .question-card {
+            background: var(--card-bg);
+            border: 1px solid var(--glass-border);
+            border-radius: 24px;
+            padding: 50px 40px;
+            margin-bottom: 30px;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .question-card::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            height: 4px;
+            background: linear-gradient(90deg, var(--neon-orange), var(--neon-pink), var(--neon-blue));
+        }
+
+        .question-number {
+            position: absolute;
+            top: 30px;
+            right: 30px;
+            font-family: 'Bebas Neue', sans-serif;
+            font-size: 4rem;
+            color: rgba(255,255,255,0.05);
+            line-height: 1;
+        }
+
+        .question-category {
+            display: inline-block;
+            background: linear-gradient(135deg, var(--neon-orange), var(--neon-pink));
+            padding: 6px 16px;
+            border-radius: 50px;
+            font-size: 0.75rem;
+            font-weight: 600;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            margin-bottom: 25px;
+        }
+
+        .question-text {
+            font-size: clamp(1.4rem, 4vw, 2rem);
+            font-weight: 600;
+            line-height: 1.4;
+            margin-bottom: 10px;
+        }
+
+        .question-hint {
+            font-size: 0.9rem;
+            color: rgba(255,255,255,0.4);
+            font-style: italic;
+        }
+
+        /* Timer */
+        .timer-container {
+            display: flex;
+            justify-content: center;
+            margin-bottom: 30px;
+        }
+
+        .timer {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            background: var(--card-bg);
+            border: 2px solid var(--glass-border);
+            border-radius: 50px;
+            padding: 12px 30px;
+            font-family: 'Space Mono', monospace;
+            font-size: 1.5rem;
+            font-weight: 700;
+            transition: all 0.3s ease;
+        }
+
+        .timer.warning {
+            border-color: var(--neon-yellow);
+            color: var(--neon-yellow);
+            animation: pulse 0.5s ease infinite;
+        }
+
+        .timer.danger {
+            border-color: var(--neon-pink);
+            color: var(--neon-pink);
+            animation: pulse 0.3s ease infinite;
+        }
+
+        @keyframes pulse {
+            0%, 100% { transform: scale(1); }
+            50% { transform: scale(1.05); }
+        }
+
+        /* Show answer button */
+        .show-answer-btn {
+            width: 100%;
+            background: var(--glass);
+            border: 2px solid var(--glass-border);
+            border-radius: 16px;
+            padding: 20px;
+            font-family: 'Outfit', sans-serif;
+            font-size: 1.1rem;
+            font-weight: 600;
+            color: #fff;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+
+        .show-answer-btn:hover {
+            border-color: var(--neon-blue);
+            background: rgba(0,212,255,0.1);
+        }
+
+        /* Answer reveal */
+        .answer-reveal {
+            display: none;
+            background: linear-gradient(135deg, rgba(57,255,20,0.1), rgba(0,212,255,0.1));
+            border: 2px solid var(--neon-green);
+            border-radius: 16px;
+            padding: 30px;
+            text-align: center;
+            margin-bottom: 20px;
+            animation: revealPop 0.4s ease;
+        }
+
+        @keyframes revealPop {
+            0% { transform: scale(0.9); opacity: 0; }
+            50% { transform: scale(1.02); }
+            100% { transform: scale(1); opacity: 1; }
+        }
+
+        .answer-reveal.show {
+            display: block;
+        }
+
+        .answer-label {
+            font-size: 0.8rem;
+            text-transform: uppercase;
+            letter-spacing: 2px;
+            color: var(--neon-green);
+            margin-bottom: 10px;
+        }
+
+        .answer-text {
+            font-family: 'Bebas Neue', sans-serif;
+            font-size: 2.5rem;
+            color: #fff;
+        }
+
+        .answer-extra {
+            font-size: 0.9rem;
+            color: rgba(255,255,255,0.6);
+            margin-top: 10px;
+        }
+
+        /* Score input */
+        .score-section {
+            display: none;
+            margin-top: 30px;
+        }
+
+        .score-section.show {
+            display: block;
+            animation: fadeIn 0.4s ease;
+        }
+
+        .score-title {
+            font-family: 'Bebas Neue', sans-serif;
+            font-size: 1.5rem;
+            margin-bottom: 20px;
+            text-align: center;
+        }
+
+        .team-scores {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 15px;
+            margin-bottom: 30px;
+        }
+
+        .team-score-card {
+            background: var(--glass);
+            border: 1px solid var(--glass-border);
+            border-radius: 16px;
+            padding: 20px;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+        }
+
+        .team-score-card .name {
+            font-weight: 600;
+        }
+
+        .score-buttons {
+            display: flex;
+            gap: 10px;
+        }
+
+        .score-btn {
+            width: 40px;
+            height: 40px;
+            border-radius: 50%;
+            border: none;
+            font-size: 1.2rem;
+            font-weight: 700;
+            cursor: pointer;
+            transition: all 0.2s ease;
+        }
+
+        .score-btn.correct {
+            background: var(--neon-green);
+            color: #000;
+        }
+
+        .score-btn.wrong {
+            background: rgba(255,255,255,0.1);
+            color: rgba(255,255,255,0.5);
+        }
+
+        .score-btn:hover {
+            transform: scale(1.1);
+        }
+
+        .score-btn.selected {
+            box-shadow: 0 0 20px currentColor;
+        }
+
+        /* Next button */
+        .next-btn {
+            width: 100%;
+            background: linear-gradient(135deg, var(--neon-blue), var(--neon-green));
+            border: none;
+            border-radius: 16px;
+            padding: 20px;
+            font-family: 'Bebas Neue', sans-serif;
+            font-size: 1.5rem;
+            color: #000;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+
+        .next-btn:hover {
+            transform: scale(1.02);
+            box-shadow: 0 10px 40px rgba(0,212,255,0.4);
+        }
+
+        /* ============ ROUND BREAK SCREEN ============ */
+        .round-break {
+            text-align: center;
+            padding: 60px 20px;
+        }
+
+        .round-complete-emoji {
+            font-size: 6rem;
+            margin-bottom: 20px;
+            animation: bounce 1s ease infinite;
+        }
+
+        @keyframes bounce {
+            0%, 100% { transform: translateY(0); }
+            50% { transform: translateY(-20px); }
+        }
+
+        .round-complete-title {
+            font-family: 'Bebas Neue', sans-serif;
+            font-size: 3rem;
+            margin-bottom: 10px;
+        }
+
+        .round-complete-subtitle {
+            color: rgba(255,255,255,0.6);
+            margin-bottom: 40px;
+        }
+
+        /* Leaderboard */
+        .leaderboard {
+            background: var(--card-bg);
+            border: 1px solid var(--glass-border);
+            border-radius: 24px;
+            padding: 30px;
+            margin-bottom: 40px;
+        }
+
+        .leaderboard-title {
+            font-family: 'Bebas Neue', sans-serif;
+            font-size: 1.5rem;
+            margin-bottom: 20px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 10px;
+        }
+
+        .leaderboard-row {
+            display: flex;
+            align-items: center;
+            padding: 15px 20px;
+            border-radius: 12px;
+            margin-bottom: 10px;
+            transition: all 0.3s ease;
+        }
+
+        .leaderboard-row:nth-child(2) {
+            background: linear-gradient(135deg, rgba(255,215,0,0.2), rgba(255,215,0,0.05));
+            border: 1px solid rgba(255,215,0,0.3);
+        }
+
+        .leaderboard-row:nth-child(3) {
+            background: linear-gradient(135deg, rgba(192,192,192,0.2), rgba(192,192,192,0.05));
+            border: 1px solid rgba(192,192,192,0.3);
+        }
+
+        .leaderboard-row:nth-child(4) {
+            background: linear-gradient(135deg, rgba(205,127,50,0.2), rgba(205,127,50,0.05));
+            border: 1px solid rgba(205,127,50,0.3);
+        }
+
+        .leaderboard-position {
+            font-family: 'Bebas Neue', sans-serif;
+            font-size: 1.5rem;
+            width: 40px;
+            color: var(--neon-orange);
+        }
+
+        .leaderboard-name {
+            flex: 1;
+            font-weight: 600;
+        }
+
+        .leaderboard-score {
+            font-family: 'Space Mono', monospace;
+            font-size: 1.2rem;
+            font-weight: 700;
+        }
+
+        .continue-btn {
+            width: 100%;
+            background: linear-gradient(135deg, var(--neon-orange), var(--neon-pink));
+            border: none;
+            border-radius: 16px;
+            padding: 25px;
+            font-family: 'Bebas Neue', sans-serif;
+            font-size: 1.8rem;
+            color: #fff;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+
+        .continue-btn:hover {
+            transform: scale(1.02);
+            box-shadow: 0 10px 40px rgba(255,107,44,0.4);
+        }
+
+        /* ============ FINAL RESULTS ============ */
+        .final-results {
+            text-align: center;
+            padding: 40px 20px;
+        }
+
+        .winner-crown {
+            font-size: 8rem;
+            animation: float 3s ease-in-out infinite;
+        }
+
+        @keyframes float {
+            0%, 100% { transform: translateY(0) rotate(-5deg); }
+            50% { transform: translateY(-20px) rotate(5deg); }
+        }
+
+        .winner-title {
+            font-family: 'Bebas Neue', sans-serif;
+            font-size: clamp(3rem, 10vw, 6rem);
+            background: linear-gradient(135deg, var(--neon-orange), var(--neon-pink), var(--neon-blue));
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+            margin-bottom: 10px;
+        }
+
+        .winner-name {
+            font-family: 'Bebas Neue', sans-serif;
+            font-size: 3rem;
+            color: #fff;
+            margin-bottom: 30px;
+        }
+
+        .final-leaderboard {
+            background: var(--card-bg);
+            border: 1px solid var(--glass-border);
+            border-radius: 24px;
+            padding: 40px;
+            margin-bottom: 40px;
+        }
+
+        .play-again-btn {
+            background: linear-gradient(135deg, var(--neon-green), var(--neon-blue));
+            border: none;
+            border-radius: 16px;
+            padding: 20px 60px;
+            font-family: 'Bebas Neue', sans-serif;
+            font-size: 1.5rem;
+            color: #000;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+
+        .play-again-btn:hover {
+            transform: scale(1.05);
+            box-shadow: 0 10px 40px rgba(57,255,20,0.4);
+        }
+
+        /* ============ MOBILE RESPONSIVE ============ */
+        @media (max-width: 600px) {
+            .container {
+                padding: 15px;
+            }
+
+            .hero {
+                padding: 30px 10px;
+            }
+
+            .stats-bar {
+                gap: 20px;
+            }
+
+            .setup-section {
+                padding: 25px;
+            }
+
+            .question-card {
+                padding: 30px 20px;
+            }
+
+            .team-scores {
+                grid-template-columns: 1fr;
+            }
+
+            .rounds-preview {
+                grid-template-columns: repeat(2, 1fr);
+            }
+        }
+
+        /* Confetti animation for winner */
+        .confetti {
+            position: fixed;
+            width: 10px;
+            height: 10px;
+            top: -10px;
+            animation: confettiFall 3s linear forwards;
+        }
+
+        @keyframes confettiFall {
+            0% { transform: translateY(0) rotate(0deg); opacity: 1; }
+            100% { transform: translateY(100vh) rotate(720deg); opacity: 0; }
+        }
+
+        /* Footer */
+        .footer {
+            text-align: center;
+            padding: 40px;
+            color: rgba(255,255,255,0.3);
+            font-size: 0.85rem;
+        }
+
+        .footer a {
+            color: var(--neon-orange);
+            text-decoration: none;
+        }
+    </style>
+</head>
+<body>
+    <div class="bg-animation"></div>
+    <div class="noise"></div>
+
+    <div class="container">
+        <!-- ========== START SCREEN ========== -->
+        <div id="startScreen" class="screen active">
+            <div class="hero">
+                <div class="logo-badge">
+                    <span>🍺</span>
+                    <span>Rotterdam's #1 Pub Quiz</span>
+                </div>
+                <h1 class="main-title">
+                    PUB QUIZ
+                    <span>ROTTERDAM</span>
+                </h1>
+                <p class="subtitle">
+                    6 rondes • 60 vragen • 1 winnaar<br>
+                    <span class="highlight">Editie 2026</span>
+                </p>
+
+                <div class="stats-bar">
+                    <div class="stat">
+                        <div class="stat-value">6</div>
+                        <div class="stat-label">Rondes</div>
+                    </div>
+                    <div class="stat">
+                        <div class="stat-value">60</div>
+                        <div class="stat-label">Vragen</div>
+                    </div>
+                    <div class="stat">
+                        <div class="stat-value">∞</div>
+                        <div class="stat-label">Lol</div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="setup-section">
+                <h3 class="section-title"><span class="icon">👥</span> Teams</h3>
+                <div id="teamInputs">
+                    <div class="team-input-row">
+                        <input type="text" class="team-input" placeholder="Team 1 naam..." maxlength="20">
+                    </div>
+                    <div class="team-input-row">
+                        <input type="text" class="team-input" placeholder="Team 2 naam..." maxlength="20">
+                    </div>
+                </div>
+                <button class="add-team-btn" onclick="addTeamInput()">+ Team toevoegen</button>
+            </div>
+
+            <div class="setup-section">
+                <h3 class="section-title"><span class="icon">🎯</span> De 6 Rondes</h3>
+                <div class="rounds-preview">
+                    <div class="round-card">
+                        <div class="emoji">🏛️</div>
+                        <div class="name">Rotterdam Classic</div>
+                        <div class="count">10 vragen</div>
+                    </div>
+                    <div class="round-card">
+                        <div class="emoji">⚽</div>
+                        <div class="name">Sport & Feyenoord</div>
+                        <div class="count">10 vragen</div>
+                    </div>
+                    <div class="round-card">
+                        <div class="emoji">🤣</div>
+                        <div class="name">Lachen & Lokaal</div>
+                        <div class="count">10 vragen</div>
+                    </div>
+                    <div class="round-card">
+                        <div class="emoji">🏗️</div>
+                        <div class="name">Architectuur</div>
+                        <div class="count">10 vragen</div>
+                    </div>
+                    <div class="round-card">
+                        <div class="emoji">🔥</div>
+                        <div class="name">2025/2026 Update</div>
+                        <div class="count">10 vragen</div>
+                    </div>
+                    <div class="round-card">
+                        <div class="emoji">💀</div>
+                        <div class="name">Killer Ronde</div>
+                        <div class="count">10 vragen</div>
+                    </div>
+                </div>
+            </div>
+
+            <button class="start-btn" onclick="startQuiz()">
+                🍻 START DE PUB QUIZ!
+            </button>
+
+            <div class="footer">
+                Powered by <a href="https://rotterdamshop.com" target="_blank">RotterdamShop.com</a> • De #1 010 Webshop
+            </div>
+        </div>
+
+        <!-- ========== QUIZ SCREEN ========== -->
+        <div id="quizScreen" class="screen">
+            <div class="quiz-header">
+                <div class="round-indicator">
+                    <div class="round-emoji" id="roundEmoji">🏛️</div>
+                    <div class="round-info">
+                        <h2 id="roundName">Ronde 1</h2>
+                        <span id="roundSubtitle">Rotterdam Classic</span>
+                    </div>
+                </div>
+                <div class="question-counter" id="questionCounter">Vraag 1/10</div>
+            </div>
+
+            <div class="progress-container">
+                <div class="progress-fill" id="progressFill" style="width: 0%"></div>
+            </div>
+
+            <div class="question-card">
+                <div class="question-number" id="questionNumber">01</div>
+                <div class="question-category" id="questionCategory">HAVEN</div>
+                <p class="question-text" id="questionText">Loading vraag...</p>
+                <p class="question-hint" id="questionHint"></p>
+            </div>
+
+            <div class="timer-container">
+                <div class="timer" id="timer">
+                    <span>⏱️</span>
+                    <span id="timerValue">30</span>
+                </div>
+            </div>
+
+            <button class="show-answer-btn" id="showAnswerBtn" onclick="showAnswer()">
+                👀 Toon Antwoord
+            </button>
+
+            <div class="answer-reveal" id="answerReveal">
+                <div class="answer-label">✅ Het juiste antwoord is</div>
+                <div class="answer-text" id="answerText">Rotterdam</div>
+                <div class="answer-extra" id="answerExtra"></div>
+            </div>
+
+            <div class="score-section" id="scoreSection">
+                <h3 class="score-title">Wie had het goed? 🎯</h3>
+                <div class="team-scores" id="teamScoreInputs"></div>
+                <button class="next-btn" onclick="nextQuestion()">
+                    ➡️ Volgende Vraag
+                </button>
+            </div>
+        </div>
+
+        <!-- ========== ROUND BREAK SCREEN ========== -->
+        <div id="roundBreakScreen" class="screen">
+            <div class="round-break">
+                <div class="round-complete-emoji">🎉</div>
+                <h2 class="round-complete-title" id="roundCompleteTitle">Ronde 1 Klaar!</h2>
+                <p class="round-complete-subtitle">Even de scores bijwerken...</p>
+
+                <div class="leaderboard">
+                    <h3 class="leaderboard-title">🏆 Tussenstand</h3>
+                    <div id="leaderboardContent"></div>
+                </div>
+
+                <button class="continue-btn" id="continueBtn" onclick="continueQuiz()">
+                    🚀 Door naar Ronde 2
+                </button>
+            </div>
+        </div>
+
+        <!-- ========== FINAL RESULTS SCREEN ========== -->
+        <div id="resultsScreen" class="screen">
+            <div class="final-results">
+                <div class="winner-crown">👑</div>
+                <h1 class="winner-title">DE WINNAAR!</h1>
+                <h2 class="winner-name" id="winnerName">Team Naam</h2>
+
+                <div class="final-leaderboard">
+                    <h3 class="leaderboard-title">🏆 Eindstand</h3>
+                    <div id="finalLeaderboard"></div>
+                </div>
+
+                <button class="play-again-btn" onclick="restartQuiz()">
+                    🔄 Opnieuw Spelen
+                </button>
+
+                <div class="footer">
+                    Deel je score! • <a href="https://rotterdamshop.com" target="_blank">RotterdamShop.com</a>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        // ============ QUIZ DATA ============
+        const rounds = [
+            {
+                name: "Rotterdam Classic",
+                emoji: "🏛️",
+                subtitle: "De basis die elke Rotterdammer moet weten",
+                questions: [
+                    { category: "Haven", question: "Welke haven is de grootste van Europa?", answer: "Rotterdam", extra: "Sinds 1962 niet meer de grootste ter wereld (Shanghai), maar nog steeds #1 in Europa!" },
+                    { category: "Geografie", question: "Aan welke rivier ligt Rotterdam?", answer: "De Maas", extra: "De Nieuwe Maas om precies te zijn, 1.000km lang vanaf de bron in Frankrijk." },
+                    { category: "Bijnaam", question: "Hoe wordt Rotterdam ook wel genoemd?", answer: "Manhattan aan de Maas", extra: "Vanwege de moderne skyline die na WOII ontstond." },
+                    { category: "Geschiedenis", question: "In welk jaar werd Rotterdam gebombardeerd?", answer: "14 mei 1940", extra: "Het bombardement duurde slechts 13 minuten maar verwoestte het hele centrum." },
+                    { category: "Stadsrechten", question: "In welk jaar kreeg Rotterdam stadsrechten?", answer: "1340", extra: "Verleend door Willem IV van Holland." },
+                    { category: "Netnummer", question: "Wat is het netnummer van Rotterdam?", answer: "010", extra: "Daarom noemen echte Rotterdammers hun stad ook '010'!" },
+                    { category: "Bevolking", question: "Hoeveel inwoners heeft Rotterdam ongeveer?", answer: "Circa 670.000", extra: "De op één na grootste stad van Nederland." },
+                    { category: "Wapen", question: "Welke kleur heeft de balk in het Rotterdamse stadswapen?", answer: "Groen", extra: "Een schuine groene balk van linksboven naar rechtsonder." },
+                    { category: "Burgemeester", question: "Wie was de burgemeester die Rotterdam door WOII loodste?", answer: "Pieter Oud", extra: "Later oprichter van de VVD." },
+                    { category: "Taal", question: "Hoe noem je het Rotterdamse dialect?", answer: "Rotterdams / Haags-Rotterdams", extra: "Bekend om het 'zachte G' en woorden als 'nie' (niet) en 'wa' (wat)." }
+                ]
+            },
+            {
+                name: "Sport & Feyenoord",
+                emoji: "⚽",
+                subtitle: "Voor de echte sportfanaten",
+                questions: [
+                    { category: "Voetbal", question: "In welk jaar won Feyenoord de Europacup I?", answer: "1970", extra: "2-1 tegen Celtic in Milaan. Doelpunten van Israël en Kindvall." },
+                    { category: "Stadion", question: "Hoe heet het stadion van Feyenoord officieel?", answer: "Stadion Feijenoord (De Kuip)", extra: "Geopend in 1937, capaciteit 47.500." },
+                    { category: "Legende", question: "Welke Feyenoord-legende droeg rugnummer 14 en is oud-trainer?", answer: "Giovanni van Bronckhorst", extra: "Won als speler de UEFA Cup in 2002." },
+                    { category: "Sparta", question: "Waar speelt Sparta Rotterdam?", answer: "Het Kasteel", extra: "Het oudste stadion van Nederland dat nog in gebruik is (1916)." },
+                    { category: "Toernooi", question: "Welk groot sportevenement werd in 2021 in Ahoy gehouden?", answer: "Eurovisie Songfestival", extra: "Eigenlijk 2020, maar uitgesteld door corona." },
+                    { category: "Tennis", question: "Hoe heet het jaarlijkse tennistoernooi in Rotterdam?", answer: "ABN AMRO Open", extra: "ATP 500 toernooi in Ahoy." },
+                    { category: "Marathon", question: "Wanneer is de Rotterdam Marathon meestal?", answer: "April", extra: "Een van de snelste parcoursen ter wereld door het vlakke traject." },
+                    { category: "Excelsior", question: "In welke wijk speelt Excelsior Rotterdam?", answer: "Kralingen", extra: "Stadion Woudestein, naast de Erasmus Universiteit." },
+                    { category: "Wielrennen", question: "Welke klassieker start/finisht soms in Rotterdam?", answer: "Tour de France", extra: "In 2010 was de Grand Départ in Rotterdam." },
+                    { category: "Recente", question: "Welke prijs won Feyenoord in 2023/2024?", answer: "Landskampioenschap", extra: "Na 6 jaar droogte eindelijk weer kampioen!" }
+                ]
+            },
+            {
+                name: "Lachen & Lokaal",
+                emoji: "🤣",
+                subtitle: "Typisch Rotterdamse humor en weetjes",
+                questions: [
+                    { category: "Eten", question: "Welk gerecht werd uitgevonden in Rotterdam?", answer: "Kapsalon", extra: "In 2003 bedacht door Nataniël Gomes bij El Aviva in Delfshaven!" },
+                    { category: "Uitdrukking", question: "Wat betekent 'nie lansen' in het Rotterdams?", answer: "Niet zeuren / niet klagen", extra: "Typisch Rotterdamse no-nonsense mentaliteit." },
+                    { category: "Humor", question: "Waarom gaan Amsterdammers niet naar Rotterdam?", answer: "Dan moeten ze af-dansen", extra: "😂 Rotterdam humor op z'n best!" },
+                    { category: "Snack", question: "Bij welke bekende Rotterdamse tent haal je de beste friet?", answer: "Bram Ladage", extra: "Opgericht in 1960 in Rotterdam, nu landelijk bekend." },
+                    { category: "Lokaal", question: "Wat is een 'kanonbal' in Rotterdam?", answer: "Een bitterbal zo groot als een kroket", extra: "Rotterdamse overdrijving in één snack." },
+                    { category: "Uitspraak", question: "Hoe zeg je 'lekker' in plat Rotterdams?", answer: "Lekkâh / Meteen", extra: "'Da's meteen!' = Dat is lekker/goed!" },
+                    { category: "Markt", question: "Op welke dag is de beroemde markt op de Binnenrotte?", answer: "Dinsdag en zaterdag", extra: "Een van de grootste warenmarkten van Nederland." },
+                    { category: "Bijnaam", question: "Hoe noemen Rotterdammers zichzelf?", answer: "010'ers", extra: "Naar het netnummer van Rotterdam." },
+                    { category: "Rivaliteit", question: "Compleet de zin: 'Geen woorden maar...'", answer: "...dansen", extra: "Het Rotterdamse motto: minder praten, meer doen!" },
+                    { category: "Kroeg", question: "In welke straat vind je de meeste kroegen in Rotterdam?", answer: "Witte de Withstraat", extra: "Het uitgaanshart van Rotterdam." }
+                ]
+            },
+            {
+                name: "Architectuur & Skyline",
+                emoji: "🏗️",
+                subtitle: "Rotterdam's beroemde gebouwen",
+                questions: [
+                    { category: "Icoon", question: "Wie ontwierp de Erasmusbrug?", answer: "Ben van Berkel (UNStudio)", extra: "Bijnaam: De Zwaan. Geopend in 1996." },
+                    { category: "Kubuswoningen", question: "Wie ontwierp de Kubuswoningen?", answer: "Piet Blom", extra: "Gebouwd in 1984, 38 kubussen op palen." },
+                    { category: "Hoogste", question: "Wat is het hoogste gebouw van Nederland?", answer: "Zalmhaven Tower", extra: "215 meter hoog, voltooid in 2022!" },
+                    { category: "Markthal", question: "In welk jaar opende de Markthal?", answer: "2014", extra: "Ontwerp van MVRDV, met kunstwerk van Arno Coenen aan het plafond." },
+                    { category: "Depot", question: "Hoe heet het spiegelende kunstdepot bij Museum Boijmans?", answer: "Depot Boijmans Van Beuningen", extra: "Ontwerp MVRDV, geopend 2021. Eerste publiek toegankelijke kunstdepot ter wereld." },
+                    { category: "Station", question: "Wanneer opende het nieuwe Centraal Station?", answer: "2014", extra: "Ontwerp van Team CS (Benthem Crouwel, MVSA, West 8)." },
+                    { category: "Euromast", question: "Hoe hoog is de Euromast?", answer: "185 meter", extra: "Oorspronkelijk 101 meter (1960), later verhoogd met Space Tower." },
+                    { category: "Rem", question: "Welk gebouw ontwierp Rem Koolhaas in Rotterdam?", answer: "De Rotterdam / Kunsthal", extra: "De Rotterdam is 150 meter hoog, 3 torens op een plint." },
+                    { category: "Witte Huis", question: "Waarom is het Witte Huis bijzonder?", answer: "Was het eerste 'wolkenkrabber' van Europa", extra: "Gebouwd in 1898, 43 meter hoog. Overleefde het bombardement!" },
+                    { category: "Wilhelminapier", question: "Hoeveel woontorens staan er op de Wilhelminapier?", answer: "Meer dan 10", extra: "Inclusief Montevideo, New Orleans, en De Rotterdam." }
+                ]
+            },
+            {
+                name: "2025/2026 Update",
+                emoji: "🔥",
+                subtitle: "Actuele vragen - ben je bij de tijd?",
+                questions: [
+                    { category: "Feyenoord", question: "Wie is de trainer van Feyenoord in seizoen 2025/2026?", answer: "Brian Priske", extra: "De Deense trainer die in 2024 Arne Slot opvolgde." },
+                    { category: "Bouw", question: "Welke nieuwe wolkenkrabber wordt in 2026 opgeleverd aan de Boompjes?", answer: "Terraced Tower", extra: "110 meter hoog, ontwerp MVSA." },
+                    { category: "Events", question: "Welk groot muziekfestival viert in 2026 zijn 50e editie in Rotterdam?", answer: "North Sea Jazz", extra: "Sinds 1976, tegenwoordig in Ahoy." },
+                    { category: "Transport", question: "Welke nieuwe metrolijn wordt gepland voor Rotterdam?", answer: "Noordelijke aftakking / Metrolijn naar Ridderkerk", extra: "Uitbreiding van het RET-netwerk." },
+                    { category: "AI", question: "Welke tech-hub opende in 2025 in Rotterdam?", answer: "Cambridge Innovation Center (CIC)", extra: "Grootste startup hub van Europa in het Groot Handelsgebouw." },
+                    { category: "Klimaat", question: "Wat is Rotterdam's ambitie voor 2050?", answer: "Klimaatneutraal zijn", extra: "Met projecten als dakparken, waterpleinen en groene daken." },
+                    { category: "Haven", question: "Welk waterstofproject draait in de Rotterdamse haven?", answer: "H2-Fifty / Hydrogen Hub", extra: "Grootste groene waterstof hub van Europa." },
+                    { category: "Cultuur", question: "Welk museum heropende na renovatie in 2025?", answer: "Museum Boijmans Van Beuningen", extra: "Na jaren verbouwing weer open voor publiek." },
+                    { category: "Voetbal", question: "Wat is de status van het nieuwe Feyenoord stadion?", answer: "Feyenoord City - plannen herzien", extra: "Renovatie De Kuip nu voorkeursoptie." },
+                    { category: "Record", question: "Welk record brak Rotterdam in 2025 qua toerisme?", answer: "Meeste bezoekers ooit", extra: "Rotterdam is trending als stedentrip bestemming!" }
+                ]
+            },
+            {
+                name: "Killer Ronde",
+                emoji: "💀",
+                subtitle: "Alleen voor de echte experts!",
+                questions: [
+                    { category: "Geheim", question: "Hoeveel kilometer fietspad heeft Rotterdam?", answer: "Circa 600 km", extra: "Een van de best fietsbare steden van Nederland." },
+                    { category: "Haven", question: "Wat is de totale oppervlakte van de Rotterdamse haven?", answer: "12.426 hectare", extra: "Zo groot als 17.000 voetbalvelden!" },
+                    { category: "Diep", question: "Hoe diep is de Maastunnel?", answer: "Circa 24 meter", extra: "Geopend in 1942, eerste autoafzinktunnel van Nederland." },
+                    { category: "Wederopbouw", question: "Wie maakte het beeld 'De Verwoeste Stad'?", answer: "Ossip Zadkine", extra: "Staat op Plein 1940, symbool van de wederopbouw." },
+                    { category: "Exact", question: "Hoeveel meter onder NAP ligt het laagste punt van Rotterdam?", answer: "Circa 6 meter", extra: "Daarom is waterbeheersing zo belangrijk!" },
+                    { category: "Containers", question: "Hoeveel TEU containers verwerkt Rotterdam jaarlijks?", answer: "Circa 14-15 miljoen", extra: "TEU = Twenty-foot Equivalent Unit (20 voet container)." },
+                    { category: "First", question: "Wanneer reed de eerste metro in Rotterdam?", answer: "9 februari 1968", extra: "Eerste metro van Nederland!" },
+                    { category: "Obscuur", question: "Welke wijk heette vroeger 'Cool'?", answer: "Centrum (Coolsingel)", extra: "Vernoemd naar de vroegere veenrivier 'De Coole'." },
+                    { category: "Kunst", question: "Wie schilderde het plafond van de Markthal?", answer: "Arno Coenen", extra: "11.000m² groot, 'Hoorn des Overvloeds' heet het werk." },
+                    { category: "Laatste", question: "In welk jaar werd de Euromast verhoogd met de Space Tower?", answer: "1970", extra: "Van 101 naar 185 meter voor meer uitzicht." }
+                ]
+            }
+        ];
+
+        // ============ GAME STATE ============
+        let teams = [];
+        let scores = {};
+        let currentRound = 0;
+        let currentQuestion = 0;
+        let timerInterval = null;
+        let timeLeft = 30;
+        let questionAnswered = false;
+
+        // ============ FUNCTIONS ============
+        function addTeamInput() {
+            const container = document.getElementById('teamInputs');
+            const count = container.children.length + 1;
+            if (count > 8) return alert('Maximaal 8 teams!');
+            
+            const row = document.createElement('div');
+            row.className = 'team-input-row';
+            row.innerHTML = `<input type="text" class="team-input" placeholder="Team ${count} naam..." maxlength="20">`;
+            container.appendChild(row);
+        }
+
+        function startQuiz() {
+            // Collect team names
+            const inputs = document.querySelectorAll('.team-input');
+            teams = [];
+            inputs.forEach(input => {
+                const name = input.value.trim() || `Team ${teams.length + 1}`;
+                if (!teams.includes(name)) {
+                    teams.push(name);
+                    scores[name] = 0;
+                }
+            });
+
+            if (teams.length < 2) {
+                alert('Voeg minimaal 2 teams toe!');
+                return;
+            }
+
+            currentRound = 0;
+            currentQuestion = 0;
+            showScreen('quizScreen');
+            loadQuestion();
+        }
+
+        function loadQuestion() {
+            const round = rounds[currentRound];
+            const question = round.questions[currentQuestion];
+            questionAnswered = false;
+
+            // Update header
+            document.getElementById('roundEmoji').textContent = round.emoji;
+            document.getElementById('roundName').textContent = `Ronde ${currentRound + 1}`;
+            document.getElementById('roundSubtitle').textContent = round.name;
+            document.getElementById('questionCounter').textContent = `Vraag ${currentQuestion + 1}/10`;
+
+            // Update progress
+            const totalProgress = ((currentRound * 10 + currentQuestion) / 60) * 100;
+            document.getElementById('progressFill').style.width = totalProgress + '%';
+
+            // Update question
+            document.getElementById('questionNumber').textContent = String(currentQuestion + 1).padStart(2, '0');
+            document.getElementById('questionCategory').textContent = question.category.toUpperCase();
+            document.getElementById('questionText').textContent = question.question;
+            document.getElementById('questionHint').textContent = '';
+
+            // Reset answer section
+            document.getElementById('answerReveal').classList.remove('show');
+            document.getElementById('scoreSection').classList.remove('show');
+            document.getElementById('showAnswerBtn').style.display = 'block';
+
+            // Start timer
+            startTimer();
+        }
+
+        function startTimer() {
+            clearInterval(timerInterval);
+            timeLeft = 30;
+            updateTimerDisplay();
+
+            timerInterval = setInterval(() => {
+                timeLeft--;
+                updateTimerDisplay();
+                if (timeLeft <= 0) {
+                    clearInterval(timerInterval);
+                    showAnswer();
+                }
+            }, 1000);
+        }
+
+        function updateTimerDisplay() {
+            const timerEl = document.getElementById('timer');
+            document.getElementById('timerValue').textContent = timeLeft;
+            
+            timerEl.classList.remove('warning', 'danger');
+            if (timeLeft <= 5) {
+                timerEl.classList.add('danger');
+            } else if (timeLeft <= 10) {
+                timerEl.classList.add('warning');
+            }
+        }
+
+        function showAnswer() {
+            if (questionAnswered) return;
+            questionAnswered = true;
+            clearInterval(timerInterval);
+
+            const round = rounds[currentRound];
+            const question = round.questions[currentQuestion];
+
+            document.getElementById('answerText').textContent = question.answer;
+            document.getElementById('answerExtra').textContent = question.extra || '';
+            document.getElementById('answerReveal').classList.add('show');
+            document.getElementById('showAnswerBtn').style.display = 'none';
+
+            // Show score input
+            renderScoreInputs();
+            document.getElementById('scoreSection').classList.add('show');
+        }
+
+        function renderScoreInputs() {
+            const container = document.getElementById('teamScoreInputs');
+            container.innerHTML = teams.map(team => `
+                <div class="team-score-card" data-team="${team}">
+                    <span class="name">${team}</span>
+                    <div class="score-buttons">
+                        <button class="score-btn correct" onclick="markScore('${team}', true)">✓</button>
+                        <button class="score-btn wrong" onclick="markScore('${team}', false)">✗</button>
+                    </div>
+                </div>
+            `).join('');
+        }
+
+        function markScore(team, correct) {
+            const card = document.querySelector(`[data-team="${team}"]`);
+            const buttons = card.querySelectorAll('.score-btn');
+            
+            buttons.forEach(btn => btn.classList.remove('selected'));
+            if (correct) {
+                buttons[0].classList.add('selected');
+                scores[team] = (scores[team] || 0) + 1;
+            } else {
+                buttons[1].classList.add('selected');
+            }
+        }
+
+        function nextQuestion() {
+            currentQuestion++;
+            
+            if (currentQuestion >= 10) {
+                // Round complete
+                currentQuestion = 0;
+                currentRound++;
+                
+                if (currentRound >= 6) {
+                    showFinalResults();
+                } else {
+                    showRoundBreak();
+                }
+            } else {
+                loadQuestion();
+            }
+        }
+
+        function showRoundBreak() {
+            showScreen('roundBreakScreen');
+            
+            document.getElementById('roundCompleteTitle').textContent = `Ronde ${currentRound} Klaar!`;
+            document.getElementById('continueBtn').textContent = `🚀 Door naar Ronde ${currentRound + 1}: ${rounds[currentRound].name}`;
+            
+            renderLeaderboard('leaderboardContent');
+        }
+
+        function continueQuiz() {
+            showScreen('quizScreen');
+            loadQuestion();
+        }
+
+        function renderLeaderboard(containerId) {
+            const sorted = Object.entries(scores).sort((a, b) => b[1] - a[1]);
+            const container = document.getElementById(containerId);
+            
+            container.innerHTML = sorted.map(([team, score], index) => `
+                <div class="leaderboard-row">
+                    <span class="leaderboard-position">${index + 1}</span>
+                    <span class="leaderboard-name">${team}</span>
+                    <span class="leaderboard-score">${score} pts</span>
+                </div>
+            `).join('');
+        }
+
+        function showFinalResults() {
+            showScreen('resultsScreen');
+            
+            const sorted = Object.entries(scores).sort((a, b) => b[1] - a[1]);
+            document.getElementById('winnerName').textContent = sorted[0][0];
+            
+            renderLeaderboard('finalLeaderboard');
+            createConfetti();
+        }
+
+        function createConfetti() {
+            const colors = ['#FF6B2C', '#FF2D7C', '#00D4FF', '#39FF14', '#FFE600'];
+            for (let i = 0; i < 100; i++) {
+                setTimeout(() => {
+                    const confetti = document.createElement('div');
+                    confetti.className = 'confetti';
+                    confetti.style.left = Math.random() * 100 + 'vw';
+                    confetti.style.backgroundColor = colors[Math.floor(Math.random() * colors.length)];
+                    confetti.style.animationDuration = (Math.random() * 2 + 2) + 's';
+                    document.body.appendChild(confetti);
+                    setTimeout(() => confetti.remove(), 4000);
+                }, i * 30);
+            }
+        }
+
+        function restartQuiz() {
+            teams.forEach(team => scores[team] = 0);
+            currentRound = 0;
+            currentQuestion = 0;
+            showScreen('startScreen');
+        }
+
+        function showScreen(screenId) {
+            document.querySelectorAll('.screen').forEach(s => s.classList.remove('active'));
+            document.getElementById(screenId).classList.add('active');
+        }
+    </script>
+
+    <!-- Schema.org markup for SEO -->
+    <script type="application/ld+json">
+    {
+        "@context": "https://schema.org",
+        "@type": "Quiz",
+        "name": "Pub Quiz Rotterdam 2026",
+        "description": "De ultieme pub quiz over Rotterdam met 60 vragen in 6 rondes. Perfect voor kroegavonden, bedrijfsuitjes en vriendengroepen.",
+        "educationalLevel": "beginner to advanced",
+        "about": {
+            "@type": "City",
+            "name": "Rotterdam",
+            "country": "Netherlands"
+        },
+        "provider": {
+            "@type": "Organization",
+            "name": "RotterdamShop.com",
+            "url": "https://rotterdamshop.com"
+        }
+    }
+    </script>
+
+    <script type="application/ld+json">
+    {
+        "@context": "https://schema.org",
+        "@type": "FAQPage",
+        "mainEntity": [
+            {
+                "@type": "Question",
+                "name": "Hoeveel rondes heeft de Pub Quiz Rotterdam?",
+                "acceptedAnswer": {
+                    "@type": "Answer",
+                    "text": "De pub quiz heeft 6 rondes met elk 10 vragen: Rotterdam Classic, Sport & Feyenoord, Lachen & Lokaal, Architectuur, 2025/2026 Update, en de Killer Ronde."
+                }
+            },
+            {
+                "@type": "Question",
+                "name": "Is de Pub Quiz Rotterdam gratis?",
+                "acceptedAnswer": {
+                    "@type": "Answer",
+                    "text": "Ja, de pub quiz is volledig gratis te spelen op RotterdamShop.com."
+                }
+            },
+            {
+                "@type": "Question",
+                "name": "Hoeveel teams kunnen meedoen?",
+                "acceptedAnswer": {
+                    "@type": "Answer",
+                    "text": "Er kunnen 2 tot 8 teams meedoen aan de quiz."
+                }
+            },
+            {
+                "@type": "Question",
+                "name": "Hoe lang duurt de pub quiz?",
+                "acceptedAnswer": {
+                    "@type": "Answer",
+                    "text": "De complete quiz met 60 vragen duurt ongeveer 45-60 minuten, afhankelijk van hoe snel jullie de antwoorden bespreken."
+                }
+            }
+        ]
+    }
+    </script>
+</body>
+</html>
