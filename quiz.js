@@ -1,4 +1,3 @@
-
         const questionsData = {
             easy: [
                 {category: "Haven", question: "Welke haven is de grootste van Europa?", answers: ["Hamburg", "Antwerpen", "Rotterdam", "Amsterdam"], correct: 2},
@@ -21,7 +20,7 @@
                 {category: "Cultuur", question: "Welk festival vindt jaarlijk plaats in Rotterdam?", answers: ["North Sea Jazz", "Lowlands", "Pinkpop", "Mysteryland"], correct: 0},
                 {category: "Buurten", question: "Welke wijk staat bekend om zijn architectuur?", answers: ["Feijenoord", "Kralingen", "Kop van Zuid", "Hillegersberg"], correct: 2},
                 {category: "Haven", question: "Wat is de bijnaam van de Rotterdamse haven?", answers: ["Europoort", "Welthafen", "Gateway to Europe", "Alle drie"], correct: 3},
-                {category: "Modern", question: "Welk gebouw is het hoogste van Nederland?", answers: ["Maastoren", "Zalmhaven Tower", "De Rotterdam", "Erasmus MC"], correct: 0},
+                {category: "Modern", question: "Welk gebouw is het hoogste van Nederland?", answers: ["Maastoren", "Zalmhaven Tower", "De Rotterdam", "Erasmus MC"], correct: 1},
                 {category: "Sport", question: "Waar werd het Eurovisiesongfestival 2021 gehouden?", answers: ["Ziggo Dome", "Ahoy Rotterdam", "De Kuip", "Concertgebouw"], correct: 1},
                 {category: "Geografie", question: "Hoeveel inwoners heeft Rotterdam ongeveer?", answers: ["550.000", "650.000", "750.000", "850.000"], correct: 1},
                 {category: "Bedrijven", question: "Welk groot bedrijf heeft zijn hoofdkantoor in Rotterdam?", answers: ["Shell", "Unilever", "Heineken", "ING"], correct: 0}
