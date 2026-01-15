@@ -278,11 +278,14 @@
 
         .round-card {
             background: var(--glass);
-            border: 1px solid var(--glass-border);
+            border: 2px solid var(--glass-border);
             border-radius: 16px;
             padding: 20px;
             text-align: center;
             transition: all 0.3s ease;
+            cursor: pointer;
+            position: relative;
+            user-select: none;
         }
 
         .round-card:hover {
@@ -290,9 +293,40 @@
             border-color: var(--neon-orange);
         }
 
+        .round-card.active {
+            border-color: var(--neon-green);
+            background: rgba(57, 255, 20, 0.1);
+        }
+
+        .round-card.active::after {
+            content: '✓';
+            position: absolute;
+            top: 8px;
+            right: 10px;
+            font-size: 1rem;
+            color: var(--neon-green);
+            font-weight: bold;
+        }
+
+        .round-card.disabled {
+            opacity: 0.35;
+            border-color: rgba(255,255,255,0.1);
+            background: rgba(0,0,0,0.3);
+        }
+
+        .round-card.disabled:hover {
+            transform: none;
+            border-color: rgba(255,255,255,0.2);
+        }
+
+        .round-card.disabled .emoji {
+            filter: grayscale(100%);
+        }
+
         .round-card .emoji {
             font-size: 2rem;
             margin-bottom: 10px;
+            transition: filter 0.3s ease;
         }
 
         .round-card .name {
@@ -304,6 +338,27 @@
         .round-card .count {
             font-size: 0.75rem;
             color: rgba(255,255,255,0.5);
+        }
+
+        .rounds-info {
+            text-align: center;
+            margin-top: 20px;
+            padding: 15px;
+            background: rgba(57, 255, 20, 0.1);
+            border: 1px solid rgba(57, 255, 20, 0.3);
+            border-radius: 12px;
+            font-size: 0.95rem;
+        }
+
+        .rounds-info strong {
+            color: var(--neon-green);
+        }
+
+        .rounds-hint {
+            text-align: center;
+            margin-top: 15px;
+            font-size: 0.8rem;
+            color: rgba(255,255,255,0.4);
         }
 
         /* Start button */
@@ -984,37 +1039,41 @@
 
             <div class="setup-section">
                 <h3 class="section-title"><span class="icon">🎯</span> De 6 Rondes</h3>
+                <p class="rounds-hint">💡 Klik op een ronde om aan/uit te zetten</p>
                 <div class="rounds-preview">
-                    <div class="round-card">
+                    <div class="round-card active" data-round="0" onclick="toggleRound(0)">
                         <div class="emoji">🏛️</div>
                         <div class="name">Rotterdam Classic</div>
                         <div class="count">10 vragen</div>
                     </div>
-                    <div class="round-card">
+                    <div class="round-card active" data-round="1" onclick="toggleRound(1)">
                         <div class="emoji">⚽</div>
                         <div class="name">Sport & Feyenoord</div>
                         <div class="count">10 vragen</div>
                     </div>
-                    <div class="round-card">
+                    <div class="round-card active" data-round="2" onclick="toggleRound(2)">
                         <div class="emoji">🤣</div>
                         <div class="name">Lachen & Lokaal</div>
                         <div class="count">10 vragen</div>
                     </div>
-                    <div class="round-card">
+                    <div class="round-card active" data-round="3" onclick="toggleRound(3)">
                         <div class="emoji">🏗️</div>
                         <div class="name">Architectuur</div>
                         <div class="count">10 vragen</div>
                     </div>
-                    <div class="round-card">
+                    <div class="round-card active" data-round="4" onclick="toggleRound(4)">
                         <div class="emoji">🔥</div>
                         <div class="name">2025/2026 Update</div>
                         <div class="count">10 vragen</div>
                     </div>
-                    <div class="round-card">
+                    <div class="round-card active" data-round="5" onclick="toggleRound(5)">
                         <div class="emoji">💀</div>
                         <div class="name">Killer Ronde</div>
                         <div class="count">10 vragen</div>
                     </div>
+                </div>
+                <div class="rounds-info" id="roundsInfo">
+                    <strong>6 rondes</strong> geselecteerd • <strong>60 vragen</strong> totaal
                 </div>
             </div>
 
@@ -1234,8 +1293,41 @@
         let timeLeft = 30;
         let questionAnswered = false;
         let currentQuestionScores = {}; // Track scores for current question
+        let selectedRounds = [0, 1, 2, 3, 4, 5]; // All rounds selected by default
+        let activeRounds = []; // Rounds to play in order
 
         // ============ FUNCTIONS ============
+        function toggleRound(roundIndex) {
+            const card = document.querySelector(`[data-round="${roundIndex}"]`);
+            
+            if (selectedRounds.includes(roundIndex)) {
+                // Don't allow deselecting if it's the last one
+                if (selectedRounds.length === 1) {
+                    alert('Je moet minimaal 1 ronde selecteren!');
+                    return;
+                }
+                // Remove from selection
+                selectedRounds = selectedRounds.filter(r => r !== roundIndex);
+                card.classList.remove('active');
+                card.classList.add('disabled');
+            } else {
+                // Add to selection
+                selectedRounds.push(roundIndex);
+                selectedRounds.sort((a, b) => a - b); // Keep in order
+                card.classList.add('active');
+                card.classList.remove('disabled');
+            }
+            
+            updateRoundsInfo();
+        }
+
+        function updateRoundsInfo() {
+            const numRounds = selectedRounds.length;
+            const numQuestions = numRounds * 10;
+            document.getElementById('roundsInfo').innerHTML = 
+                `<strong>${numRounds} ronde${numRounds !== 1 ? 's' : ''}</strong> geselecteerd • <strong>${numQuestions} vragen</strong> totaal`;
+        }
+
         function addTeamInput() {
             const container = document.getElementById('teamInputs');
             const count = container.children.length + 1;
@@ -1264,26 +1356,36 @@
                 return;
             }
 
-            currentRound = 0;
+            if (selectedRounds.length === 0) {
+                alert('Selecteer minimaal 1 ronde!');
+                return;
+            }
+
+            // Set up the active rounds to play
+            activeRounds = [...selectedRounds];
+            currentRound = 0; // Index in activeRounds array
             currentQuestion = 0;
             showScreen('quizScreen');
             loadQuestion();
         }
 
         function loadQuestion() {
-            const round = rounds[currentRound];
+            const actualRoundIndex = activeRounds[currentRound];
+            const round = rounds[actualRoundIndex];
             const question = round.questions[currentQuestion];
             questionAnswered = false;
             currentQuestionScores = {}; // Reset current question scores
 
             // Update header
             document.getElementById('roundEmoji').textContent = round.emoji;
-            document.getElementById('roundName').textContent = `Ronde ${currentRound + 1}`;
+            document.getElementById('roundName').textContent = `Ronde ${currentRound + 1} van ${activeRounds.length}`;
             document.getElementById('roundSubtitle').textContent = round.name;
             document.getElementById('questionCounter').textContent = `Vraag ${currentQuestion + 1}/10`;
 
             // Update progress
-            const totalProgress = ((currentRound * 10 + currentQuestion) / 60) * 100;
+            const totalQuestions = activeRounds.length * 10;
+            const completedQuestions = currentRound * 10 + currentQuestion;
+            const totalProgress = (completedQuestions / totalQuestions) * 100;
             document.getElementById('progressFill').style.width = totalProgress + '%';
 
             // Update question
@@ -1333,7 +1435,8 @@
             questionAnswered = true;
             clearInterval(timerInterval);
 
-            const round = rounds[currentRound];
+            const actualRoundIndex = activeRounds[currentRound];
+            const round = rounds[actualRoundIndex];
             const question = round.questions[currentQuestion];
 
             document.getElementById('answerText').textContent = question.answer;
@@ -1395,7 +1498,7 @@
                 currentQuestion = 0;
                 currentRound++;
                 
-                if (currentRound >= 6) {
+                if (currentRound >= activeRounds.length) {
                     showFinalResults();
                 } else {
                     showRoundBreak();
@@ -1408,8 +1511,13 @@
         function showRoundBreak() {
             showScreen('roundBreakScreen');
             
-            document.getElementById('roundCompleteTitle').textContent = `Ronde ${currentRound} Klaar!`;
-            document.getElementById('continueBtn').textContent = `🚀 Door naar Ronde ${currentRound + 1}: ${rounds[currentRound].name}`;
+            const completedRoundIndex = activeRounds[currentRound - 1];
+            const nextRoundIndex = activeRounds[currentRound];
+            const completedRound = rounds[completedRoundIndex];
+            const nextRound = rounds[nextRoundIndex];
+            
+            document.getElementById('roundCompleteTitle').textContent = `${completedRound.name} Klaar!`;
+            document.getElementById('continueBtn').textContent = `🚀 Door naar: ${nextRound.name}`;
             
             renderLeaderboard('leaderboardContent');
         }
