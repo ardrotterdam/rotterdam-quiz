@@ -1292,28 +1292,25 @@
         let timerInterval = null;
         let timeLeft = 30;
         let questionAnswered = false;
-        let currentQuestionScores = {}; // Track scores for current question
-        let selectedRounds = [0, 1, 2, 3, 4, 5]; // All rounds selected by default
-        let activeRounds = []; // Rounds to play in order
+        let currentQuestionScores = {};
+        let selectedRounds = [0, 1, 2, 3, 4, 5];
+        let activeRounds = [];
 
         // ============ FUNCTIONS ============
         function toggleRound(roundIndex) {
             const card = document.querySelector(`[data-round="${roundIndex}"]`);
             
             if (selectedRounds.includes(roundIndex)) {
-                // Don't allow deselecting if it's the last one
                 if (selectedRounds.length === 1) {
                     alert('Je moet minimaal 1 ronde selecteren!');
                     return;
                 }
-                // Remove from selection
                 selectedRounds = selectedRounds.filter(r => r !== roundIndex);
                 card.classList.remove('active');
                 card.classList.add('disabled');
             } else {
-                // Add to selection
                 selectedRounds.push(roundIndex);
-                selectedRounds.sort((a, b) => a - b); // Keep in order
+                selectedRounds.sort((a, b) => a - b);
                 card.classList.add('active');
                 card.classList.remove('disabled');
             }
@@ -1340,7 +1337,6 @@
         }
 
         function startQuiz() {
-            // Collect team names
             const inputs = document.querySelectorAll('.team-input');
             teams = [];
             inputs.forEach(input => {
@@ -1361,9 +1357,8 @@
                 return;
             }
 
-            // Set up the active rounds to play
             activeRounds = [...selectedRounds];
-            currentRound = 0; // Index in activeRounds array
+            currentRound = 0;
             currentQuestion = 0;
             showScreen('quizScreen');
             loadQuestion();
@@ -1374,32 +1369,27 @@
             const round = rounds[actualRoundIndex];
             const question = round.questions[currentQuestion];
             questionAnswered = false;
-            currentQuestionScores = {}; // Reset current question scores
+            currentQuestionScores = {};
 
-            // Update header
             document.getElementById('roundEmoji').textContent = round.emoji;
             document.getElementById('roundName').textContent = `Ronde ${currentRound + 1} van ${activeRounds.length}`;
             document.getElementById('roundSubtitle').textContent = round.name;
             document.getElementById('questionCounter').textContent = `Vraag ${currentQuestion + 1}/10`;
 
-            // Update progress
             const totalQuestions = activeRounds.length * 10;
             const completedQuestions = currentRound * 10 + currentQuestion;
             const totalProgress = (completedQuestions / totalQuestions) * 100;
             document.getElementById('progressFill').style.width = totalProgress + '%';
 
-            // Update question
             document.getElementById('questionNumber').textContent = String(currentQuestion + 1).padStart(2, '0');
             document.getElementById('questionCategory').textContent = question.category.toUpperCase();
             document.getElementById('questionText').textContent = question.question;
             document.getElementById('questionHint').textContent = '';
 
-            // Reset answer section
             document.getElementById('answerReveal').classList.remove('show');
             document.getElementById('scoreSection').classList.remove('show');
             document.getElementById('showAnswerBtn').style.display = 'block';
 
-            // Start timer
             startTimer();
         }
 
@@ -1444,7 +1434,6 @@
             document.getElementById('answerReveal').classList.add('show');
             document.getElementById('showAnswerBtn').style.display = 'none';
 
-            // Show score input
             renderScoreInputs();
             document.getElementById('scoreSection').classList.add('show');
         }
@@ -1467,24 +1456,21 @@
             const card = document.getElementById(cardId);
             const buttons = card.querySelectorAll('.score-btn');
             
-            // Remove all previous states
             buttons.forEach(btn => btn.classList.remove('selected'));
             card.classList.remove('marked-correct', 'marked-wrong');
             
-            // Apply new state
             if (correct) {
-                buttons[0].classList.add('selected'); // ✓ button
+                buttons[0].classList.add('selected');
                 card.classList.add('marked-correct');
                 currentQuestionScores[team] = 1;
             } else {
-                buttons[1].classList.add('selected'); // ✗ button
+                buttons[1].classList.add('selected');
                 card.classList.add('marked-wrong');
                 currentQuestionScores[team] = 0;
             }
         }
 
         function nextQuestion() {
-            // Apply scores from current question
             for (const team in currentQuestionScores) {
                 if (currentQuestionScores[team] === 1) {
                     scores[team] = (scores[team] || 0) + 1;
@@ -1494,7 +1480,6 @@
             currentQuestion++;
             
             if (currentQuestion >= 10) {
-                // Round complete
                 currentQuestion = 0;
                 currentRound++;
                 
@@ -1578,7 +1563,7 @@
         }
     </script>
 
-    <!-- Schema.org markup for SEO -->
+    <!-- Schema.org markup for SEO - alleen Quiz, GEEN FAQPage -->
     <script type="application/ld+json">
     {
         "@context": "https://schema.org",
@@ -1596,47 +1581,6 @@
             "name": "RotterdamShop.com",
             "url": "https://rotterdamshop.com"
         }
-    }
-    </script>
-
-    <script type="application/ld+json">
-    {
-        "@context": "https://schema.org",
-        "@type": "FAQPage",
-        "mainEntity": [
-            {
-                "@type": "Question",
-                "name": "Hoeveel rondes heeft de Pub Quiz Rotterdam?",
-                "acceptedAnswer": {
-                    "@type": "Answer",
-                    "text": "De pub quiz heeft 6 rondes met elk 10 vragen: Rotterdam Classic, Sport & Feyenoord, Lachen & Lokaal, Architectuur, 2025/2026 Update, en de Killer Ronde."
-                }
-            },
-            {
-                "@type": "Question",
-                "name": "Is de Pub Quiz Rotterdam gratis?",
-                "acceptedAnswer": {
-                    "@type": "Answer",
-                    "text": "Ja, de pub quiz is volledig gratis te spelen op RotterdamShop.com."
-                }
-            },
-            {
-                "@type": "Question",
-                "name": "Hoeveel teams kunnen meedoen?",
-                "acceptedAnswer": {
-                    "@type": "Answer",
-                    "text": "Er kunnen 2 tot 8 teams meedoen aan de quiz."
-                }
-            },
-            {
-                "@type": "Question",
-                "name": "Hoe lang duurt de pub quiz?",
-                "acceptedAnswer": {
-                    "@type": "Answer",
-                    "text": "De complete quiz met 60 vragen duurt ongeveer 45-60 minuten, afhankelijk van hoe snel jullie de antwoorden bespreken."
-                }
-            }
-        ]
     }
     </script>
 </body>
