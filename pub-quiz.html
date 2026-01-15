@@ -578,16 +578,43 @@
 
         .team-score-card {
             background: var(--glass);
-            border: 1px solid var(--glass-border);
+            border: 2px solid var(--glass-border);
             border-radius: 16px;
             padding: 20px;
             display: flex;
             align-items: center;
             justify-content: space-between;
+            transition: all 0.3s ease;
+        }
+
+        /* VERBETERDE STATES VOOR GOED/FOUT */
+        .team-score-card.marked-correct {
+            background: rgba(57, 255, 20, 0.15);
+            border-color: var(--neon-green);
+            box-shadow: 0 0 20px rgba(57, 255, 20, 0.3);
+        }
+
+        .team-score-card.marked-wrong {
+            background: rgba(255, 45, 124, 0.15);
+            border-color: var(--neon-pink);
+            box-shadow: 0 0 20px rgba(255, 45, 124, 0.3);
         }
 
         .team-score-card .name {
             font-weight: 600;
+            font-size: 1.1rem;
+        }
+
+        .team-score-card.marked-correct .name::after {
+            content: ' ✓';
+            color: var(--neon-green);
+            font-weight: 700;
+        }
+
+        .team-score-card.marked-wrong .name::after {
+            content: ' ✗';
+            color: var(--neon-pink);
+            font-weight: 700;
         }
 
         .score-buttons {
@@ -596,32 +623,70 @@
         }
 
         .score-btn {
-            width: 40px;
-            height: 40px;
+            width: 50px;
+            height: 50px;
             border-radius: 50%;
-            border: none;
-            font-size: 1.2rem;
+            border: 3px solid transparent;
+            font-size: 1.4rem;
             font-weight: 700;
             cursor: pointer;
             transition: all 0.2s ease;
+            display: flex;
+            align-items: center;
+            justify-content: center;
         }
 
         .score-btn.correct {
-            background: var(--neon-green);
-            color: #000;
+            background: rgba(57, 255, 20, 0.2);
+            color: var(--neon-green);
+            border-color: var(--neon-green);
         }
 
         .score-btn.wrong {
-            background: rgba(255,255,255,0.1);
+            background: rgba(255, 255, 255, 0.1);
             color: rgba(255,255,255,0.5);
+            border-color: rgba(255,255,255,0.2);
         }
 
         .score-btn:hover {
-            transform: scale(1.1);
+            transform: scale(1.15);
         }
 
-        .score-btn.selected {
-            box-shadow: 0 0 20px currentColor;
+        .score-btn.correct:hover {
+            background: rgba(57, 255, 20, 0.4);
+            box-shadow: 0 0 25px rgba(57, 255, 20, 0.5);
+        }
+
+        .score-btn.wrong:hover {
+            background: rgba(255, 45, 124, 0.3);
+            border-color: var(--neon-pink);
+            color: var(--neon-pink);
+            box-shadow: 0 0 25px rgba(255, 45, 124, 0.5);
+        }
+
+        /* SELECTED STATES - VEEL DUIDELIJKER */
+        .score-btn.correct.selected {
+            background: var(--neon-green);
+            color: #000;
+            transform: scale(1.1);
+            box-shadow: 0 0 30px rgba(57, 255, 20, 0.7);
+        }
+
+        .score-btn.wrong.selected {
+            background: var(--neon-pink);
+            border-color: var(--neon-pink);
+            color: #fff;
+            transform: scale(1.1);
+            box-shadow: 0 0 30px rgba(255, 45, 124, 0.7);
+        }
+
+        /* Dim the other button when one is selected */
+        .team-score-card.marked-correct .score-btn.wrong {
+            opacity: 0.3;
+        }
+
+        .team-score-card.marked-wrong .score-btn.correct {
+            opacity: 0.3;
         }
 
         /* Next button */
@@ -1103,7 +1168,7 @@
                     { category: "Uitspraak", question: "Hoe zeg je 'lekker' in plat Rotterdams?", answer: "Lekkâh / Meteen", extra: "'Da's meteen!' = Dat is lekker/goed!" },
                     { category: "Markt", question: "Op welke dag is de beroemde markt op de Binnenrotte?", answer: "Dinsdag en zaterdag", extra: "Een van de grootste warenmarkten van Nederland." },
                     { category: "Bijnaam", question: "Hoe noemen Rotterdammers zichzelf?", answer: "010'ers", extra: "Naar het netnummer van Rotterdam." },
-                    { category: "Rivaliteit", question: "Compleet de zin: 'Geen woorden maar...'", answer: "...dansen", extra: "Het Rotterdamse motto: minder praten, meer doen!" },
+                    { category: "Rivaliteit", question: "Compleet de zin: 'Geen woorden maar...'", answer: "...daden", extra: "Het Rotterdamse motto: minder praten, meer doen!" },
                     { category: "Kroeg", question: "In welke straat vind je de meeste kroegen in Rotterdam?", answer: "Witte de Withstraat", extra: "Het uitgaanshart van Rotterdam." }
                 ]
             },
@@ -1168,6 +1233,7 @@
         let timerInterval = null;
         let timeLeft = 30;
         let questionAnswered = false;
+        let currentQuestionScores = {}; // Track scores for current question
 
         // ============ FUNCTIONS ============
         function addTeamInput() {
@@ -1208,6 +1274,7 @@
             const round = rounds[currentRound];
             const question = round.questions[currentQuestion];
             questionAnswered = false;
+            currentQuestionScores = {}; // Reset current question scores
 
             // Update header
             document.getElementById('roundEmoji').textContent = round.emoji;
@@ -1282,30 +1349,45 @@
         function renderScoreInputs() {
             const container = document.getElementById('teamScoreInputs');
             container.innerHTML = teams.map(team => `
-                <div class="team-score-card" data-team="${team}">
+                <div class="team-score-card" data-team="${team}" id="card-${team.replace(/\s+/g, '-')}">
                     <span class="name">${team}</span>
                     <div class="score-buttons">
-                        <button class="score-btn correct" onclick="markScore('${team}', true)">✓</button>
-                        <button class="score-btn wrong" onclick="markScore('${team}', false)">✗</button>
+                        <button class="score-btn correct" onclick="markScore('${team}', true)" title="Goed">✓</button>
+                        <button class="score-btn wrong" onclick="markScore('${team}', false)" title="Fout">✗</button>
                     </div>
                 </div>
             `).join('');
         }
 
         function markScore(team, correct) {
-            const card = document.querySelector(`[data-team="${team}"]`);
+            const cardId = `card-${team.replace(/\s+/g, '-')}`;
+            const card = document.getElementById(cardId);
             const buttons = card.querySelectorAll('.score-btn');
             
+            // Remove all previous states
             buttons.forEach(btn => btn.classList.remove('selected'));
+            card.classList.remove('marked-correct', 'marked-wrong');
+            
+            // Apply new state
             if (correct) {
-                buttons[0].classList.add('selected');
-                scores[team] = (scores[team] || 0) + 1;
+                buttons[0].classList.add('selected'); // ✓ button
+                card.classList.add('marked-correct');
+                currentQuestionScores[team] = 1;
             } else {
-                buttons[1].classList.add('selected');
+                buttons[1].classList.add('selected'); // ✗ button
+                card.classList.add('marked-wrong');
+                currentQuestionScores[team] = 0;
             }
         }
 
         function nextQuestion() {
+            // Apply scores from current question
+            for (const team in currentQuestionScores) {
+                if (currentQuestionScores[team] === 1) {
+                    scores[team] = (scores[team] || 0) + 1;
+                }
+            }
+            
             currentQuestion++;
             
             if (currentQuestion >= 10) {
