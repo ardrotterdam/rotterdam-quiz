@@ -231,11 +231,35 @@
             document.querySelectorAll('.difficulty-btn').forEach(btn => {
                 btn.classList.remove('selected');
             });
-            document.querySelector(`[data-difficulty="${difficulty}"]`).classList.add('selected');
+            const el = document.querySelector(`[data-difficulty="${difficulty}"]`);
+            if (!el) {
+                console.error('Ontbrekende knop voor:', difficulty);
+                return;
+            }
+            el.classList.add('selected');
         }
 
         function startQuiz() {
-            questions = questionsData[currentDifficulty].slice(0, difficultySettings[currentDifficulty].total);
+            const sel = document.querySelector('.difficulty-btn.selected');
+            if (sel && sel.dataset.difficulty && questionsData[sel.dataset.difficulty]) {
+                currentDifficulty = sel.dataset.difficulty;
+            }
+
+            const pool = questionsData[currentDifficulty];
+            const cfg = difficultySettings[currentDifficulty];
+            if (!pool || !cfg) {
+                alert('Quiz kon niet laden (onbekende modus). Vernieuw de pagina of kies een andere optie.');
+                return;
+            }
+            const total = Math.min(cfg.total, pool.length);
+            if (total < 1) {
+                alert('Er zijn nog geen vragen voor deze modus.');
+                return;
+            }
+
+            questions = pool.slice(0, total);
+
+            document.getElementById('resultsScreen').style.display = 'none';
             document.getElementById('startScreen').style.display = 'none';
             document.getElementById('quizScreen').style.display = 'block';
             currentQuestion = 0;
@@ -355,7 +379,7 @@
             document.getElementById('progressFill').style.width = '100%';
 
             let message, title, description;
-            const percentage = (score / totalQuestions) * 100;
+            const percentage = totalQuestions > 0 ? (score / totalQuestions) * 100 : 0;
             
             if (percentage >= 90) {
                 message = "🏆 Rotterdam Expert!";
@@ -386,6 +410,7 @@
 
         function restartQuiz() {
             document.getElementById('resultsScreen').style.display = 'none';
+            document.getElementById('quizScreen').style.display = 'none';
             document.getElementById('startScreen').style.display = 'block';
             currentQuestion = 0;
             score = 0;
