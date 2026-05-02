@@ -556,16 +556,29 @@
 
   body {
     display: block !important;
+    min-height: 100vh !important;
+    min-height: 100dvh !important;
+  }
+
+  body::before {
+    width: 100% !important;
+    max-width: 100% !important;
+    left: 0 !important;
+    right: 0 !important;
+    margin: 0 !important;
+    padding: 0 !important;
   }
 
   .quiz-container {
     margin: 0 !important;
     padding: 0 !important;
     width: 100% !important;
-    max-width: 100% !important;
+    max-width: none !important;
+    min-width: 0 !important;
     border-radius: 0 !important;
     box-sizing: border-box !important;
     min-height: 100vh !important;
+    min-height: 100dvh !important;
   }
 
   .header,
