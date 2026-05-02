@@ -552,28 +552,37 @@
 }
 
 @media (max-width: 768px) {
+  body,
   html {
-    margin: 0;
-    padding: 0;
-    min-height: 100%;
-    min-height: 100dvh;
-    background: linear-gradient(135deg, #1a1a2e 0%, #16213e 50%, #0f3460 100%);
+    margin: 0 !important;
+    padding: 0 !important;
+    width: 100% !important;
+    max-width: 100% !important;
+    overflow-x: hidden !important;
+  }
+
+  html {
+    min-height: 100% !important;
+    min-height: 100dvh !important;
+    background: linear-gradient(135deg, #1a1a2e 0%, #16213e 50%, #0f3460 100%) !important;
   }
 
   body {
-    margin: 0;
-    padding: 0 10px;
-    width: 100%;
-    max-width: 100%;
-    box-sizing: border-box;
-    min-height: 100vh;
-    min-height: 100dvh;
+    display: block !important;
+    min-height: 100vh !important;
+    min-height: 100dvh !important;
+    background: linear-gradient(135deg, #1a1a2e 0%, #16213e 50%, #0f3460 100%) !important;
+    position: relative !important;
   }
 
-  .quiz-container {
-    margin: 0;
-    width: 100%;
-    max-width: 100%;
-    border-radius: 0;
+  .quiz-container,
+  .container,
+  main {
+    margin: 0 !important;
+    padding: 10px !important;
+    width: 100% !important;
+    max-width: 100% !important;
+    border-radius: 0 !important;
+    box-sizing: border-box !important;
   }
 }
