@@ -211,7 +211,18 @@
                 {category: "Voetbal", question: "Welke Rotterdammer scoorde het winnende doelpunt tegen Argentinië op WK 1998?", answers: ["Dennis Bergkamp", "Edgar Davids", "Patrick Kluivert", "Ronald de Boer"], correct: 0},
                 {category: "Voetbal", question: "Dirk Kuyt keerde terug bij Feyenoord en werd in welk seizoen kampioen als aanvoerder?", answers: ["2015/16", "2016/17", "2017/18", "2018/19"], correct: 1},
                 {category: "Filosofie", question: "Welke beroemde humanist werd in 1466 in Rotterdam geboren?", answers: ["Spinoza", "Erasmus", "Hugo de Groot", "Comenius"], correct: 1},
-                {category: "Politiek", question: "Wie is sinds 2009 burgemeester van Rotterdam?", answers: ["Ivo Opstelten", "Ahmed Aboutaleb", "Bram Peper", "Cor Lamers"], correct: 1}
+                {category: "Politiek", question: "Wie is sinds 2009 burgemeester van Rotterdam?", answers: ["Ivo Opstelten", "Ahmed Aboutaleb", "Bram Peper", "Cor Lamers"], correct: 1},
+                {category: "Politiek", question: "Welke politicus richtte Leefbaar Rotterdam op en werd in 2002 vermoord?", answers: ["Geert Wilders", "Pim Fortuyn", "Hans Janmaat", "Rita Verdonk"], correct: 1},
+                {category: "Cultuur", question: "Welke dichter werd 'de nachtburgemeester van Rotterdam' genoemd?", answers: ["Jules Deelder", "Lévi Weemoedt", "Cees Buddingh'", "Riekus Waskowsky"], correct: 0},
+                {category: "Cabaret", question: "Welke Rotterdamse cabaretier staat bekend om zijn absurde humor en grote ogen?", answers: ["Youp van 't Hek", "Hans Teeuwen", "Theo Maassen", "Herman Finkers"], correct: 1},
+                {category: "Muziek", question: "Welke rapper uit Rotterdam scoorde een hit met 'Het land van...'?", answers: ["Ali B", "Lange Frans & Baas B", "Brainpower", "Extince"], correct: 1},
+                {category: "Muziek", question: "Welke Rotterdamse rapper brak door met 'Ik ben Boef'?", answers: ["Lil' Kleine", "Boef", "Ronnie Flex", "Sevn Alias"], correct: 1},
+                {category: "TV", question: "Welke presentator/acteur werd in Rotterdam geboren en presenteerde populaire TV-shows?", answers: ["Matthijs van Nieuwkerk", "Beau van Erven Dorens", "Jeroen Pauw", "Twan Huys"], correct: 1},
+                {category: "Dans", question: "Welke Rotterdammer werd bekend als jurylid bij So You Think You Can Dance?", answers: ["Dan Karaty", "Jan Kooijman", "Euvgenia Parakhina", "Isabelle Beernaert"], correct: 1},
+                {category: "Mode", question: "Welke beroemde Nederlandse modeontwerper komt uit Rotterdam?", answers: ["Viktor & Rolf", "Mart Visser", "Iris van Herpen", "Jan Taminiau"], correct: 1},
+                {category: "Muziek", question: "Welke Rotterdamse zanger staat bekend om hits in het Nederlandstalige genre?", answers: ["Marco Borsato", "Gerard Joling", "Frans Bauer", "Frans Duijts"], correct: 1},
+                {category: "Architectuur", question: "Welke wereldberoemde architect werd geboren in Rotterdam in 1944?", answers: ["Rem Koolhaas", "Piet Blom", "Ben van Berkel", "Winy Maas"], correct: 0},
+                {category: "Boksen", question: "Welke Surinaams-Rotterdamse kickbokser werd meervoudig wereldkampioen?", answers: ["Badr Hari", "Remy Bonjasky", "Ernesto Hoost", "Tyrone Spong"], correct: 1}
             ]
         };
 
