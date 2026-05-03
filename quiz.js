@@ -203,26 +203,6 @@
                 {category: "Bijbel", question: "Wat was Erasmus' bijdrage aan de Bijbel?", answers: ["Hij maakte de eerste gedrukte Griekse uitgave van het Nieuwe Testament", "Hij vertaalde 'm in het Nederlands", "Hij illustreerde 'm", "Hij verbood 'm"], correct: 0},
                 {category: "Brieven", question: "Erasmus stond bekend om zijn omvangrijke wat?", answers: ["Schilderijen", "Brieven en correspondentie", "Boekenverzameling", "Reizen"], correct: 1},
                 {category: "Erfgoed", question: "Wat is het belangrijkste erfgoed van Erasmus volgens historici?", answers: ["Zijn architectuur", "Zijn bijdrage aan humanisme en kritisch denken", "Zijn militaire prestaties", "Zijn handelsimperium"], correct: 1}
-            ],
-            rotterdammers: [
-                {category: "Voetbal", question: "Welke Feyenoord-legende staat bekend als 'Mister Feyenoord' en speelde meer dan 400 wedstrijden voor de club?", answers: ["Coen Moulijn", "Robin van Persie", "Dirk Kuyt", "Henk Wery"], correct: 0},
-                {category: "Voetbal", question: "Welke wereldberoemde voetballer werd geboren in Rotterdam in 1983?", answers: ["Wesley Sneijder", "Robin van Persie", "Arjen Robben", "Klaas-Jan Huntelaar"], correct: 1},
-                {category: "Voetbal", question: "In welke Rotterdamse wijk groeide Robin van Persie op?", answers: ["Kralingen", "Hillegersberg", "Bospolder", "Charlois"], correct: 2},
-                {category: "Voetbal", question: "Welke Rotterdammer scoorde het winnende doelpunt tegen Argentinië op WK 1998?", answers: ["Dennis Bergkamp", "Edgar Davids", "Patrick Kluivert", "Ronald de Boer"], correct: 0},
-                {category: "Voetbal", question: "Dirk Kuyt keerde terug bij Feyenoord en werd in welk seizoen kampioen als aanvoerder?", answers: ["2015/16", "2016/17", "2017/18", "2018/19"], correct: 1},
-                {category: "Filosofie", question: "Welke beroemde humanist werd in 1466 in Rotterdam geboren?", answers: ["Spinoza", "Erasmus", "Hugo de Groot", "Comenius"], correct: 1},
-                {category: "Politiek", question: "Wie is sinds 2009 burgemeester van Rotterdam?", answers: ["Ivo Opstelten", "Ahmed Aboutaleb", "Bram Peper", "Cor Lamers"], correct: 1},
-                {category: "Politiek", question: "Welke politicus richtte Leefbaar Rotterdam op en werd in 2002 vermoord?", answers: ["Geert Wilders", "Pim Fortuyn", "Hans Janmaat", "Rita Verdonk"], correct: 1},
-                {category: "Cultuur", question: "Welke dichter werd 'de nachtburgemeester van Rotterdam' genoemd?", answers: ["Jules Deelder", "Lévi Weemoedt", "Cees Buddingh'", "Riekus Waskowsky"], correct: 0},
-                {category: "Cabaret", question: "Welke Rotterdamse cabaretier staat bekend om zijn absurde humor en grote ogen?", answers: ["Youp van 't Hek", "Hans Teeuwen", "Theo Maassen", "Herman Finkers"], correct: 1},
-                {category: "Muziek", question: "Welke rapper uit Rotterdam scoorde een hit met 'Het land van...'?", answers: ["Ali B", "Lange Frans & Baas B", "Brainpower", "Extince"], correct: 1},
-                {category: "Muziek", question: "Welke Rotterdamse rapper brak door met 'Ik ben Boef'?", answers: ["Lil' Kleine", "Boef", "Ronnie Flex", "Sevn Alias"], correct: 1},
-                {category: "TV", question: "Welke presentator/acteur werd in Rotterdam geboren en presenteerde populaire TV-shows?", answers: ["Matthijs van Nieuwkerk", "Beau van Erven Dorens", "Jeroen Pauw", "Twan Huys"], correct: 1},
-                {category: "Dans", question: "Welke Rotterdammer werd bekend als jurylid bij So You Think You Can Dance?", answers: ["Dan Karaty", "Jan Kooijman", "Euvgenia Parakhina", "Isabelle Beernaert"], correct: 1},
-                {category: "Mode", question: "Welke beroemde Nederlandse modeontwerper komt uit Rotterdam?", answers: ["Viktor & Rolf", "Mart Visser", "Iris van Herpen", "Jan Taminiau"], correct: 1},
-                {category: "Muziek", question: "Welke Rotterdamse zanger staat bekend om hits in het Nederlandstalige genre?", answers: ["Marco Borsato", "Gerard Joling", "Frans Bauer", "Frans Duijts"], correct: 1},
-                {category: "Architectuur", question: "Welke wereldberoemde architect werd geboren in Rotterdam in 1944?", answers: ["Rem Koolhaas", "Piet Blom", "Ben van Berkel", "Winy Maas"], correct: 0},
-                {category: "Boksen", question: "Welke Surinaams-Rotterdamse kickbokser werd meervoudig wereldkampioen?", answers: ["Badr Hari", "Remy Bonjasky", "Ernesto Hoost", "Tyrone Spong"], correct: 1}
             ]
         };
 
@@ -243,8 +223,7 @@
             taal: { time: 30, total: 25 },
             haven: { time: 30, total: 25 },
             eten: { time: 30, total: 25 },
-            erasmus: { time: 35, total: 25 },
-            rotterdammers: { time: 30, total: 25 }
+            erasmus: { time: 35, total: 25 }
         };
 
         function selectDifficulty(difficulty) {
