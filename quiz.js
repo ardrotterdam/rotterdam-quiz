@@ -203,6 +203,33 @@
                 {category: "Bijbel", question: "Wat was Erasmus' bijdrage aan de Bijbel?", answers: ["Hij maakte de eerste gedrukte Griekse uitgave van het Nieuwe Testament", "Hij vertaalde 'm in het Nederlands", "Hij illustreerde 'm", "Hij verbood 'm"], correct: 0},
                 {category: "Brieven", question: "Erasmus stond bekend om zijn omvangrijke wat?", answers: ["Schilderijen", "Brieven en correspondentie", "Boekenverzameling", "Reizen"], correct: 1},
                 {category: "Erfgoed", question: "Wat is het belangrijkste erfgoed van Erasmus volgens historici?", answers: ["Zijn architectuur", "Zijn bijdrage aan humanisme en kritisch denken", "Zijn militaire prestaties", "Zijn handelsimperium"], correct: 1}
+            ],
+            rotterdammers: [
+                {category: "Komedie", question: "Welke wereldberoemde Rotterdamse komiek werd geboren in 1947 in Delfshaven en heet eigenlijk Adrianus Marinus Kyvon?", answers: ["Paul de Leeuw", "André van Duin", "Hans Teeuwen", "Youp van 't Hek"], correct: 1},
+                {category: "Komedie", question: "Welke Rotterdamse entertainer werd in 1962 geboren in de wijk Feijenoord en presenteerde 'De Schreeuw van de Leeuw'?", answers: ["Paul de Leeuw", "André van Duin", "Jeroen van Inkel", "Gordon"], correct: 0},
+                {category: "Voetbal", question: "Welke Feyenoord-legende werd in 1937 in Rotterdam geboren en speelde meer dan 400 wedstrijden voor de club?", answers: ["Coen Moulijn", "Wim van Hanegem", "Eddy Treijtel", "Henk Wery"], correct: 0},
+                {category: "Voetbal", question: "Welke wereldberoemde voetballer werd op 6 augustus 1983 in Rotterdam geboren en begon zijn carrière bij Excelsior?", answers: ["Wesley Sneijder", "Robin van Persie", "Klaas-Jan Huntelaar", "Rafael van der Vaart"], correct: 1},
+                {category: "Filosofie", question: "Welke wereldberoemde humanist werd in 1466 in Rotterdam geboren?", answers: ["Spinoza", "Erasmus", "Hugo de Groot", "Comenius"], correct: 1},
+                {category: "Architectuur", question: "Welke Rotterdamse architect (geboren 1944) ontwierp wereldwijd iconische gebouwen en is een van de bekendste architecten ter wereld?", answers: ["Rem Koolhaas", "Piet Blom", "Ben van Berkel", "Winy Maas"], correct: 0},
+                {category: "Cultuur", question: "Welke Rotterdamse dichter, geboren in 1944 in Overschie, werd 'de nachtburgemeester van Rotterdam' genoemd?", answers: ["Jules Deelder", "Riekus Waskowsky", "Cees Buddingh'", "Lévi Weemoedt"], correct: 0},
+                {category: "Politiek", question: "Welke uit Rotterdam afkomstige politica werd Eurocommissaris voor Mededinging en later voor Digitale Agenda?", answers: ["Sigrid Kaag", "Neelie Kroes", "Lilianne Ploumen", "Jeanine Hennis"], correct: 1},
+                {category: "Burgemeester", question: "Wie is sinds 2009 burgemeester van Rotterdam?", answers: ["Ivo Opstelten", "Ahmed Aboutaleb", "Bram Peper", "Cor Lamers"], correct: 1},
+                {category: "Burgemeester", question: "Wie was burgemeester van Rotterdam van 1986 tot 1998 en richtte daarna mede de PvdA-lijn rond stedelijk beleid?", answers: ["Bram Peper", "Pieter Oud", "Jan van Stolk", "André van der Louw"], correct: 0},
+                {category: "Acteur", question: "Welke Rotterdamse acteur (geboren 1972) brak door in 'Costa!' en speelde in talloze Nederlandse films en series?", answers: ["Barry Atsma", "Daan Schuurmans", "Marwan Kenzari", "Jacob Derwig"], correct: 1},
+                {category: "Cabaret", question: "Welke veelzijdige Rotterdamse cabaretière en actrice (geboren 1953) staat bekend om haar rol in 'Toen was geluk heel gewoon'?", answers: ["Adèle Bloemendaal", "Loes Luca", "Joke Bruijs", "Lenette van Dongen"], correct: 1},
+                {category: "Koken", question: "Welke Rotterdamse chef-kok staat bekend van 'Herrie in de Keuken' en runde restaurant Las Palmas?", answers: ["Ron Blaauw", "Herman den Blijker", "Sergio Herman", "Robert Kranenborg"], correct: 1},
+                {category: "Mode", question: "Welke Rotterdamse modeontwerper (geboren 1968) ontwerpt onder eigen naam couture?", answers: ["Viktor Horsting", "Mart Visser", "Jan Taminiau", "Ronald van der Kemp"], correct: 1},
+                {category: "Muziek", question: "Welke Rotterdamse zanger, geboren in 1946 als Leen Huijzer, staat bekend om zijn iconische optredens in Ahoy?", answers: ["Lee Towers", "Gerard Joling", "Jan Smit", "André Hazes"], correct: 0},
+                {category: "Muziek", question: "Welke Rotterdamse DJ/producer wordt beschouwd als pionier van de Nederlandse hardcore/gabberscene?", answers: ["Tiësto", "Paul Elstak", "Armin van Buuren", "Hardwell"], correct: 1},
+                {category: "Voetbal", question: "Welke Rotterdamse voetballer met blonde dreadlocks werd cultheld bij Feyenoord in de jaren '90?", answers: ["John de Wolf", "Henrik Larsson", "Ed de Goey", "Ruud Heus"], correct: 0},
+                {category: "Voetbal", question: "Welke Rotterdamse Feyenoord-aanvoerder won als trainer het kampioenschap in 2017?", answers: ["Giovanni van Bronckhorst", "Mario Been", "Leo Beenhakker", "Bert van Marwijk"], correct: 0},
+                {category: "Cultuur", question: "Welke Rotterdamse beeldhouwster (1905-1960) schreef onder pseudoniem en is bekend van het standbeeld bij haar roman?", answers: ["Anna Blaman", "Annie M.G. Schmidt", "Hella Haasse", "Marga Minco"], correct: 0},
+                {category: "Voetbal", question: "Welke Rotterdammer was in de jaren '80 doelman van Feyenoord en het Nederlands elftal?", answers: ["Hans van Breukelen", "Joop Hiele", "Eddy Treijtel", "Stanley Menzo"], correct: 1},
+                {category: "Cultuur", question: "Welk standbeeld van Ossip Zadkine staat in het centrum van Rotterdam als symbool van het bombardement?", answers: ["De Verwoeste Stad", "Stad in Tranen", "Het Geheugen", "Zonder Hart"], correct: 0},
+                {category: "Politiek", question: "Welke Rotterdamse politicus richtte begin jaren 2000 Leefbaar Rotterdam op?", answers: ["Pim Fortuyn", "Ronald Sørensen", "Marco Pastors", "Joost Eerdmans"], correct: 1},
+                {category: "Erasmus", question: "Wat was het beroemdste werk van Erasmus van Rotterdam, gepubliceerd in 1509?", answers: ["Lof der Zotheid", "De Vorst", "Utopia", "De Imitatie van Christus"], correct: 0},
+                {category: "Voetbal", question: "Bij welke Rotterdamse club begon Robin van Persie zijn jeugdvoetbalcarrière?", answers: ["Feyenoord", "Sparta Rotterdam", "Excelsior", "SBV Excelsior"], correct: 2},
+                {category: "Komedie", question: "In welke Amsterdamse straat groeide André van Duin op?", answers: ["Hij groeide op in Rotterdam-Delfshaven, niet in Amsterdam", "Watergeusstraat", "Coolsingel", "Nieuwe Binnenweg"], correct: 0}
             ]
         };
 
@@ -223,7 +250,8 @@
             taal: { time: 30, total: 25 },
             haven: { time: 30, total: 25 },
             eten: { time: 30, total: 25 },
-            erasmus: { time: 35, total: 25 }
+            erasmus: { time: 35, total: 25 },
+            rotterdammers: { time: 30, total: 25 }
         };
 
         function selectDifficulty(difficulty) {
